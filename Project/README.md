@@ -7,7 +7,7 @@ The code for CS427 Android app.
 
 | Name | NetID | GitHub ID | Role | Experience |
 |------|-------|-----------|------|------------|
-|      |       |           |      |            |
+|   Omeed Jamali   |    ojama2   |      ojama2     |   Developer   |      Python, C, C++, Java      |
 |      |       |           |      |            |
 |      |       |           |      |            |
 |      |       |           |      |            |
