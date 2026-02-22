@@ -2,7 +2,7 @@
 
 The code for CS427 Android app.
 
-## Team #XYZ member information
+## Team #304 member information
 (Replace XYZ with your team number)
 
 | Name | NetID | GitHub ID | Role | Experience |
