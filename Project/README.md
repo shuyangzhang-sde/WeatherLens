@@ -13,6 +13,7 @@ The code for CS427 Android app.
 | Akin Tuna Sakalli | sakalli2 | akinnsakalli | Developer | Backend, ML |
 | Varsha Mullangi | varsham3 | varsham3 | Developer | Backend |
 | Akshay Rao | Akshayr4 | Akreal1 | Developer | Backend |
+| Lewen Shen | lewens2 | LeWEn22 | Developer | Backend |
 
 ## Weekly Progress Reports
 
