@@ -37,7 +37,7 @@ Next week, we will begin working on Iteration 2. Specifically, we will draft req
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-| sz94 | Created the GitHub repository, added the TA and teammates as contributors, and created a Google Doc to draft the README tables. Handled and sent Team304-Iteration1.pdf to the TA in the Campuswire chat room. | Merge the completed tables into the README. Lead requirement brainstorming discussion. Ensure requirements align with app description. Draft initial UML class diagram. Assign use-case writing tasks to team members. |
+| sz94 | Created the GitHub repository, added the TA and teammates as contributors, and created a Google Doc to draft the README tables. Handled and sent Team304-Iteration1.pdf to the TA in the Campuswire chat room. | Lead requirement brainstorming discussion. Ensure requirements align with app description. Draft initial UML class diagram. Assign use-case writing tasks to team members. |
 | ojama2 | Created Discord group chat for communication, Set weekly meeting time, Created zoom link for weekly meeting | Lead weekly meeting. Check-in with team members to see if everyone was able to complete setup. Update weekly progress report. |
 | sakalli2 | Set up the project environment | Attend weekly meeting and take on tasks |
 | Akshayr4 | Set up the project environment | Engage in development based on group decisions starting next week |
