@@ -43,7 +43,7 @@ Next week, we will begin working on Iteration 2. Specifically, we will draft req
 | sakalli2 | Set up the project environment | Attend weekly meeting and take on tasks |
 | Akshayr4 | Set up the project environment | Engage in development based on group decisions starting next week |
 | mj45 | Set up the project environment | Help with development based on initial draft of UML class diagram |
-|       |                         |                     |
+| varsham3 | Set up the project environment | Start development based on tasks assigned at the weekly meeting |
 
 ### Project Week 2
 
