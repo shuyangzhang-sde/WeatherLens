@@ -5,16 +5,16 @@ The code for CS427 Android app.
 ## Team #304 member information
 (Replace XYZ with your team number)
 
-| Name | NetID | GitHub ID | Role | Experience |
-|------|-------|-----------|------|------------|
-|   Omeed Jamali   |    ojama2   |      ojama2     |   Developer   |      Python, C, C++, Java      |
-|      |       |           |      |            |
-|      |       |           |      |            |
-|      |       |           |      |            |
-|      |       |           |      |            |
-|      |       |           |      |            |
-|      |       |           |      |            |
-|      |       |           |      |            |
+| Name         | NetID   | GitHub ID | Role      | Experience           |
+|--------------|---------|-----------|-----------|----------------------|
+| Omeed Jamali | ojama2  |      ojama2 | Developer | Python, C, C++, Java |
+| Lewen Shen   | lewens2 |LeWEn22    | Developer | Python, C, C++, Java |
+|              |         |           |           |                      |
+|              |         |           |           |                      |
+|              |         |           |           |                      |
+|              |         |           |           |                      |
+|              |         |           |           |                      |
+|              |         |           |           |                      |
 
 ## Weekly Progress Reports
 
