@@ -48,14 +48,14 @@ Next week, we will begin working on Iteration 2. Specifically, we will draft req
 ### Project Week 2
 
 **Members present:**
-List the NetID of the people who attended the meeting
+Akshayr4
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+Updated first half of requirements for iteration 2
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
+|Akshayr4| came up with 2 user flows|work on component transition graph|
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
