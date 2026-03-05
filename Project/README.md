@@ -29,12 +29,7 @@ Password: 138679
 ### Project Week 1
 
 **Members present:**
-sz94, sakalli2, ojama2, Akshayr4, mj45
-
-**Meeting notes:**
-This week, we focused on setting up the group and the project environment for Iteration 1 Part 2. We created the GitHub repository cs427-team304, added our TA as a collaborator, and collected everyone's netID email to grant repository access. Each team member should successfully set up their local development environment, clone the repository, and confirm a successful build in Android Studio. Team members also expressed interest in roles.
-
-Next week, we will begin working on Iteration 2. Specifically, we will draft requirements and use-case scenarios.
+sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
@@ -44,18 +39,16 @@ Next week, we will begin working on Iteration 2. Specifically, we will draft req
 | Akshayr4 | Set up the project environment | Engage in development based on group decisions starting next week |
 | mj45 | Set up the project environment | Help with development based on initial draft of UML class diagram |
 | varsham3 | Set up the project environment | Start development based on tasks assigned at the weekly meeting |
+| yuchen87 | Set up the project environment | Contribute detailed requirements for the app's map and weather functionality |
 
 ### Project Week 2
 
 **Members present:**
-Akshayr4
-
-**Meeting notes:**
-Updated first half of requirements for iteration 2
+yuchen87
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|Akshayr4| came up with 2 user flows|work on component transition graph|
+|yuchen87| Contributed detailed requirements for the app | Design and develop the UML class diagram for the app |
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
