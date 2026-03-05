@@ -48,7 +48,7 @@ yuchen87
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|yuchen87| Contributed detailed requirements for the app | Design and develop the UML class diagram for the app |
+|yuchen87| Contributed R5 (map functionality) and R6 (weather details display) requirements | Design UML class diagram for the app |
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
