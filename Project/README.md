@@ -49,6 +49,7 @@ Next week, we will begin working on Iteration 2. Specifically, we will draft req
 
 **Members present:**
 Akshayr4
+mj45
 
 **Meeting notes:**
 Updated first half of requirements for iteration 2
@@ -56,7 +57,7 @@ Updated first half of requirements for iteration 2
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
 |Akshayr4| came up with 2 user flows|work on component transition graph|
-|       |                         |                     |
+|Mj45    | Came up with 2 fully dressed use cases|work on component transition graph|
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
