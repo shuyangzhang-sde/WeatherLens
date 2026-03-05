@@ -1,5 +1,4 @@
 # Project
-# Project
 
 The code for CS427 Android app.
 
@@ -45,11 +44,12 @@ sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87
 ### Project Week 2
 
 **Members present:**
-Akshayr4, yuchen87
+Akshayr4, mj45, yuchen87
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
 |Akshayr4| came up with 2 user flows|work on component transition graph|
+|Mj45    | Came up with 2 fully dressed use cases|work on component transition graph|
 |yuchen87| Contributed requirements for the app | Design UML class diagram for the app |
 |       |                         |                     |
 |       |                         |                     |
