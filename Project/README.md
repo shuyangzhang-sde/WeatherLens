@@ -44,14 +44,17 @@ sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87
 ### Project Week 2
 
 **Members present:**
-Akshayr4, mj45, yuchen87
+Akshayr4, mj45, yuchen87, ojama2, sz94, varsham3, sakalli2
+
+**Meeting notes:**
+During this weekly meeting, we went over some of the progress we made on iteration 2. At this point, we have finished the informal requirements and have divided the remainder of the tasks (UML Diagram, Transition Graph) to be completed next week.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
 |Akshayr4| came up with 2 user flows|work on component transition graph|
 |Mj45    | Came up with 2 fully dressed use cases|work on component transition graph|
 |yuchen87| Contributed requirements for the app | Design UML class diagram for the app |
-|       |                         |                     |
+|ojama2| Came up with 2 informal requirements, Led weekly meeting | Work on UML class diagram for iteration 2 |
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
@@ -61,16 +64,16 @@ Akshayr4, mj45, yuchen87
 ### Project Week 3
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This week, we completed all of the requirements of iteration 2 and combined our progress into a document ready for submission. We also started getting familiar with the tasks that we need to fulfill for week 3.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+| ojama2 | Worked on UML Class Diagram, Led weekly meeting | Begin looking through iteration 3 to discuss task assignment |
+| akshayr4 | Worked on component transition graph | Get started on rough class structure |
+| yuchen87 | Worked on UML Class Diagram | Understand starter codebase ahead of iteration 3 tasks |
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
