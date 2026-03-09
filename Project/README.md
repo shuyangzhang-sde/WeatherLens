@@ -29,7 +29,7 @@ Password: 138679
 ### Project Week 1
 
 **Members present:**
-sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87
+sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87, varsham3
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
@@ -56,7 +56,7 @@ During this weekly meeting, we went over some of the progress we made on iterati
 |yuchen87| Contributed requirements for the app | Design UML class diagram for the app |
 |ojama2| Came up with 2 informal requirements, Led weekly meeting | Work on UML class diagram for iteration 2 |
 | sz94 | Understood Iteration 2 requirements. In the meeting, chose to write two informal requirements and UML. Completed two informal requirements in Week 2. | Take a look at all teammates' informal requirements and use cases, consider the UML and Component Transition Graph, then choose one area I am more skilled at to complete. Write peer review and update my section in README.md. |
-|       |                         |                     |
+|varsham3| came up with 2 fully dressed use cases for the app | begin working on component transition graph|
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
@@ -75,7 +75,7 @@ This week, we completed all of the requirements of iteration 2 and combined our 
 | akshayr4 | Worked on component transition graph | Get started on rough class structure |
 | yuchen87 | Worked on UML Class Diagram | Understand starter codebase ahead of iteration 3 tasks |
 | sz94 | Chose to work on UML. Collaborated with the teammate assigned to UML task, brainstormed, reviewed and refined details. Helped complete the PDF submitted to the TA. | Understand Iteration 3 requirements. |
-|       |                         |                     |
+| varsham3 | worked on component trasition graph | begin looking through iteration 3 requirements and brainstorm implementation possibilities|
 |       |                         |                     |
 |       |                         |                     |
 |       |                         |                     |
