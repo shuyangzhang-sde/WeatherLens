@@ -1,3 +1,62 @@
-class LoginActivity {
-  
+package edu.uiuc.cs427app;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * Authentication screen that serves as the app's launcher activity.
+ * Provides sign-in for returning users and sign-up for new users.
+ * Collects username, password, and a natural-language theme description
+ * used for LLM-driven UI customization.
+ */
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText editUsername;
+    private EditText editPassword;
+    private EditText editThemeDescription;
+    private Button buttonSignIn;
+    private Button buttonSignUp;
+    private DatabaseHelper databaseHelper;
+
+    /**
+     * Initializes the login UI components and sets click listeners
+     * for the sign-in and sign-up buttons.
+     *
+     * @param savedInstanceState the previously saved instance state, if any
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        
+    }
+
+    /**
+     * Handles sign-in by validating the entered username and password
+     * against stored credentials. On success, navigates to MainActivity
+     * with the authenticated username.
+     */
+    private void handleSignIn() {
+        
+    }
+
+    /**
+     * Handles sign-up by creating a new user account. Validates that username,
+     * password, and theme description are all provided, and that the username
+     * is not already taken. On success, navigates to MainActivity.
+     */
+    private void handleSignUp() {
+        
+    }
+
+    /**
+     * Navigates to MainActivity, passing the logged-in username via Intent extras.
+     * Clears the activity back stack so pressing back won't return to the login screen.
+     *
+     * @param username the authenticated user's username
+     */
+    private void navigateToMain(String username) {
+        
+    }
 }
