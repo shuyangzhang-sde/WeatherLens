@@ -64,7 +64,22 @@ public class LoginActivity extends AppCompatActivity {
      * with the authenticated username.
      */
     private void handleSignIn() {
-        
+        String username = editUsername.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter both username and password",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (databaseHelper.checkUser(username, password)) {
+            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+            navigateToMain(username);
+        } else {
+            Toast.makeText(this, "Invalid username or password",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
