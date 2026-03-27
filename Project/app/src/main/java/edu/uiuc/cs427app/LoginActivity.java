@@ -127,6 +127,10 @@ public class LoginActivity extends AppCompatActivity {
      * @param username the authenticated user's username
      */
     private void navigateToMain(String username) {
-        
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("username", username);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
