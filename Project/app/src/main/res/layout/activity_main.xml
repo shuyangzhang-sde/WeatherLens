@@ -14,10 +14,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="CS427 Project App" />
+            android:text="Team 304"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
 
         <TextView
             android:id="@+id/textView4"
@@ -100,6 +103,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add a location" />
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Out" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

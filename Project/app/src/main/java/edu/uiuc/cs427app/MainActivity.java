@@ -2,30 +2,30 @@ package edu.uiuc.cs427app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.ui.AppBarConfiguration;
-
-import edu.uiuc.cs427app.databinding.ActivityMainBinding;
-
-import android.widget.Button;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initializing the UI components
-        // The list of locations should be customized per user (change the implementation so that
-        // buttons are added to layout programmatically
+        currentUsername = getIntent().getStringExtra("username");
+        if (currentUsername == null) {
+            navigateToLogin();
+            return;
+        }
+
+        TextView titleView = findViewById(R.id.textViewTitle);
+        titleView.setText("Team 304 - " + currentUsername);
+
         Button buttonChampaign = findViewById(R.id.buttonChampaign);
         Button buttonChicago = findViewById(R.id.buttonChicago);
         Button buttonLA = findViewById(R.id.buttonLA);
@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonLA.setOnClickListener(this);
         buttonNew.setOnClickListener(this);
 
+        Button buttonLogout = findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToLogin();
+            }
+        });
     }
 
     @Override
@@ -58,5 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Implement this action to add a new location to the list of locations
         }
     }
-}
 
+    private void navigateToLogin() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+}
