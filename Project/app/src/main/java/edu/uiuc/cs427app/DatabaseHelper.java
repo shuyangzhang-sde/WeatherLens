@@ -26,6 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_PASSWORD = "password";
     private static final String COL_THEME_DESC = "theme_description";
 
+    /*
+    It can be activated if we want to store the cities in the same database.
+    private static final String TABLE_CITIES = "user_cities";
+    private static final String COL_CITY_ID = "id";
+    private static final String COL_CITY_USERNAME = "username";
+    private static final String COL_CITY_NAME = "city_name";
+    */
+
     /**
      * Constructs a new DatabaseHelper bound to the given application context.
      *
@@ -50,6 +58,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_PASSWORD + " TEXT NOT NULL, "
                 + COL_THEME_DESC + " TEXT)";
         db.execSQL(createUsersTable);
+
+        /*
+        It can be activated if we want to store the cities in the same database.
+        String createCitiesTable = "CREATE TABLE " + TABLE_CITIES + " ("
+                + COL_CITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_CITY_USERNAME + " TEXT NOT NULL, "
+                + COL_CITY_NAME + " TEXT NOT NULL, "
+                + "FOREIGN KEY(" + COL_CITY_USERNAME + ") REFERENCES "
+                + TABLE_USERS + "(" + COL_USERNAME + "))";
+        db.execSQL(createCitiesTable);
+        */
     }
 
     /**
@@ -161,4 +180,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return theme;
     }
+ 
+    /**
+     * Adds a city to the given user's list of locations.
+     *
+     * @param username the username to associate the city with
+     * @param cityName the name of the city to add
+     * @return true if the city was added successfully
+     */
+
+    /*
+    It can be activated if we want to store the cities in the same database.
+
+    public boolean addCity(String username, String cityName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_CITY_USERNAME, username);
+        values.put(COL_CITY_NAME, cityName);
+        long result = db.insert(TABLE_CITIES, null, values);
+        return result != -1;
+    }
+    */
+
+    /**
+     * Removes a city from the given user's list of locations.
+     *
+     * @param username the username whose city list to modify
+     * @param cityName the name of the city to remove
+     * @return true if the city was found and removed
+     */
+
+    /*
+    It can be activated if we want to store the cities in the same database.
+
+    public boolean removeCity(String username, String cityName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete(TABLE_CITIES,
+                COL_CITY_USERNAME + " = ? AND " + COL_CITY_NAME + " = ?",
+                new String[]{username, cityName});
+        return result > 0;
+    }
+    */
+
+    /**
+     * Retrieves all cities saved by the given user.
+     *
+     * @param username the username whose city list to retrieve
+     * @return a list of city names, empty if the user has no saved cities
+     */
+
+    /*
+    It can be activated if we want to store the cities in the same database.
+    public List<String> getCities(String username) {
+        List<String> cities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_CITY_NAME + " FROM " + TABLE_CITIES
+                        + " WHERE " + COL_CITY_USERNAME + " = ?",
+                new String[]{username});
+        while (cursor.moveToNext()) {
+            cities.add(cursor.getString(0));
+        }
+        cursor.close();
+        return cities;
+    }
+    */
 }
