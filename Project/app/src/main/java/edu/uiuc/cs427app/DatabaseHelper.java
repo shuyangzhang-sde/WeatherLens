@@ -1,8 +1,15 @@
 package edu.uiuc.cs427app;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQLite database helper that manages user accounts and per-user city lists.
@@ -108,7 +115,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return true if the username exists and the password matches
      */
     public boolean checkUser(String username, String password) {
-        
+        SQLiteDatabase db = this.getReadableDatabase();
+        String hashedPassword = hashPassword(password);
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_USERS
+                        + " WHERE " + COL_USERNAME + " = ? AND " + COL_PASSWORD + " = ?",
+                new String[]{username, hashedPassword});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
     }
 
     /**
@@ -118,7 +133,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return true if the username exists in the database
      */
     public boolean userExists(String username) {
-        
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USERNAME + " = ?",
+                new String[]{username});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
     }
 
     /**
@@ -128,6 +149,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return the stored theme description, or null if the user is not found
      */
     public String getUserTheme(String username) {
-        
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_THEME_DESC + " FROM " + TABLE_USERS
+                        + " WHERE " + COL_USERNAME + " = ?",
+                new String[]{username});
+        String theme = null;
+        if (cursor.moveToFirst()) {
+            theme = cursor.getString(0);
+        }
+        cursor.close();
+        return theme;
     }
 }
