@@ -88,7 +88,36 @@ public class LoginActivity extends AppCompatActivity {
      * is not already taken. On success, navigates to MainActivity.
      */
     private void handleSignUp() {
-        
+        String username = editUsername.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        String themeDescription = editThemeDescription.getText().toString().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter both username and password",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (themeDescription.isEmpty()) {
+            Toast.makeText(this, "Please enter a theme description",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (databaseHelper.userExists(username)) {
+            Toast.makeText(this, "Username already exists",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (databaseHelper.addUser(username, password, themeDescription)) {
+            Toast.makeText(this, "Account created successfully",
+                    Toast.LENGTH_SHORT).show();
+            navigateToMain(username);
+        } else {
+            Toast.makeText(this, "Registration failed. Please try again.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
