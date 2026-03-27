@@ -67,7 +67,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return the hex-encoded SHA-256 hash of the password
      */
     private String hashPassword(String password) {
-        
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 algorithm not found", e);
+        }
     }
 
     /**
@@ -79,7 +91,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return true if the user was created successfully, false if the username already exists
      */
     public boolean addUser(String username, String password, String themeDescription) {
-        
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USERNAME, username);
+        values.put(COL_PASSWORD, hashPassword(password));
+        values.put(COL_THEME_DESC, themeDescription);
+        long result = db.insert(TABLE_USERS, null, values);
+        return result != -1;
     }
 
     /**
