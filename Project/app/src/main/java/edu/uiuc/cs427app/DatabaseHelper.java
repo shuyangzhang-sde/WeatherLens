@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_USERNAME = "username";
     private static final String COL_PASSWORD = "password";
     private static final String COL_THEME_DESC = "theme_description";
+    private static final String TABLE_CITIES = "cities";
 
     /*
     It can be activated if we want to store the cities in the same database.
