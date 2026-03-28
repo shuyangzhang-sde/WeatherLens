@@ -8,10 +8,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+import edu.uiuc.cs427app.theme.ThemeSpec;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String currentUsername;
 
+    /** Restores the active user and applies the current theme. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +44,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button buttonLogout = findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
+            /** Returns to the login screen. */
             @Override
             public void onClick(View v) {
                 navigateToLogin();
             }
         });
+
+        applyResolvedTheme();
     }
 
+    /** Routes location buttons to the correct detail screen. */
     @Override
     public void onClick(View view) {
         Intent intent;
@@ -66,6 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /** Applies a validated theme, or the default theme when no JSON is available. */
+    private void applyResolvedTheme() {
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        ThemeSpec themeSpec = ThemeParser.parseThemeJsonOrDefault(themeJson);
+        ThemeManager.applyTheme(this, themeSpec);
+    }
+
+    /** Clears the back stack and returns to login. */
     private void navigateToLogin() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

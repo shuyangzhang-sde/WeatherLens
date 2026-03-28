@@ -9,12 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * Authentication screen that serves as the app's launcher activity.
- * Provides sign-in for returning users and sign-up for new users.
- * Collects username, password, and a natural-language theme description
- * used for LLM-driven UI customization.
- */
+import edu.uiuc.cs427app.theme.ThemeContract;
+
+/** Authentication screen for sign-in, sign-up, and theme prompt capture. */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editUsername;
@@ -24,12 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonSignUp;
     private DatabaseHelper databaseHelper;
 
-    /**
-     * Initializes the login UI components and sets click listeners
-     * for the sign-in and sign-up buttons.
-     *
-     * @param savedInstanceState the previously saved instance state, if any
-     */
+    /** Initializes the auth form and button handlers. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonSignUp = findViewById(R.id.buttonSignUp);
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            /** Starts sign-in from the current form values. */
             @Override
             public void onClick(View v) {
                 handleSignIn();
@@ -51,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            /** Starts sign-up from the current form values. */
             @Override
             public void onClick(View v) {
                 handleSignUp();
@@ -58,11 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Handles sign-in by validating the entered username and password
-     * against stored credentials. On success, navigates to MainActivity
-     * with the authenticated username.
-     */
+    /** Validates credentials and forwards the optional theme prompt. */
     private void handleSignIn() {
         String username = editUsername.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
@@ -75,18 +65,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if (databaseHelper.checkUser(username, password)) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            navigateToMain(username);
+            navigateToMain(username, editThemeDescription.getText().toString().trim(), null);
         } else {
             Toast.makeText(this, "Invalid username or password",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * Handles sign-up by creating a new user account. Validates that username,
-     * password, and theme description are all provided, and that the username
-     * is not already taken. On success, navigates to MainActivity.
-     */
+    /** Creates a user account and forwards the entered theme prompt. */
     private void handleSignUp() {
         String username = editUsername.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
@@ -113,22 +99,19 @@ public class LoginActivity extends AppCompatActivity {
         if (databaseHelper.addUser(username, password, themeDescription)) {
             Toast.makeText(this, "Account created successfully",
                     Toast.LENGTH_SHORT).show();
-            navigateToMain(username);
+            navigateToMain(username, themeDescription, null);
         } else {
             Toast.makeText(this, "Registration failed. Please try again.",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * Navigates to MainActivity, passing the logged-in username via Intent extras.
-     * Clears the activity back stack so pressing back won't return to the login screen.
-     *
-     * @param username the authenticated user's username
-     */
-    private void navigateToMain(String username) {
+    /** Opens the main screen with the current username and theme handoff data. */
+    private void navigateToMain(String username, String themePrompt, String themeJson) {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("username", username);
+        intent.putExtra(ThemeContract.EXTRA_THEME_PROMPT, themePrompt);
+        intent.putExtra(ThemeContract.EXTRA_THEME_JSON, themeJson);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
