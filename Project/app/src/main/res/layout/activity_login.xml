@@ -94,15 +94,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Theme hint note -->
-        <TextView
-            android:id="@+id/textViewThemeHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="Theme is set at sign-up and used to personalize your UI."
-            android:textSize="12sp"
-            android:textColor="?attr/colorOnSurface"
-            android:alpha="0.6" />
 
         <!-- Sign In button -->
         <com.google.android.material.button.MaterialButton

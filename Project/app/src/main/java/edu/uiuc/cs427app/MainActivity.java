@@ -1,5 +1,5 @@
 package edu.uiuc.cs427app;
-//import edu.uiuc.cs427app.BuildConfig;
+import edu.uiuc.cs427app.BuildConfig;
 
 import android.content.Intent;
 import android.os.Bundle;

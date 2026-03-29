@@ -56,9 +56,16 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignIn() {
         String username = editUsername.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
+        String themeDescription = editThemeDescription.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter both username and password",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (themeDescription.isEmpty()) {
+            Toast.makeText(this, "Please enter a theme description",
                     Toast.LENGTH_SHORT).show();
             return;
         }
