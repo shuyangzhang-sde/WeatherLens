@@ -105,17 +105,17 @@ This weekly meeting was used to divide tasks for the upcoming iteration 3 part 1
 ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This meeting was used to finalize changes for the iteration 3 part 1 submission. Merge conflicts were resolved and the app was thoroughly tested.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Implemented API Call its processing to apply theme to MainActivity page               |         Begin looking into tasks for iteration 3 part 2            |
+|   sz94    |              Implemented login/logout feature           |          Begin looking into tasks for iteration 3 part 2           |
+|   akshayr4    |            Implemented add cities and backend for persistence             |         Begin looking into tasks for iteration 3 part 2            |
+|   yuchen87    |          Created tools to parse API Call into JSON format for theme               |          Begin looking into tasks for iteration 3 part 2           |
+|   mj45    |           Implemented remove cities and city verification              |          Begin looking into tasks for iteration 3 part 2           |
+|    varsham3   |            Implemented remove cities and city verification             |          Begin looking into tasks for iteration 3 part 2           |
+|    sakalli3   |           Implemented login/logout feature              |          Begin looking into tasks for iteration 3 part 2           |
 |       |                         |                     |
 
 ### Project Week 6
