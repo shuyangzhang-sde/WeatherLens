@@ -5,17 +5,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
 
 import edu.uiuc.cs427app.theme.ThemeContract;
 import edu.uiuc.cs427app.theme.ThemeManager;
 import edu.uiuc.cs427app.theme.ThemeParser;
 import edu.uiuc.cs427app.theme.ThemeSpec;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
 
     private String currentUsername;
+    private DatabaseHelper databaseHelper;
+
+    private LinearLayout cityContainer;
 
     /** Restores the active user and applies the current theme. */
     @Override
@@ -29,18 +34,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        databaseHelper = new DatabaseHelper(this);
+
         TextView titleView = findViewById(R.id.textViewTitle);
         titleView.setText("Team 304 - " + currentUsername);
 
-        Button buttonChampaign = findViewById(R.id.buttonChampaign);
-        Button buttonChicago = findViewById(R.id.buttonChicago);
-        Button buttonLA = findViewById(R.id.buttonLA);
-        Button buttonNew = findViewById(R.id.buttonAddLocation);
+        cityContainer = findViewById(R.id.cityContainer);
+        if (cityContainer == null) {
+            throw new RuntimeException("cityContainer is null - check activity_main.xml");
+        }
 
-        buttonChampaign.setOnClickListener(this);
-        buttonChicago.setOnClickListener(this);
-        buttonLA.setOnClickListener(this);
-        buttonNew.setOnClickListener(this);
+        Button buttonNew = findViewById(R.id.buttonAddLocation);
+        buttonNew.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddCityActivity.class);
+            intent.putExtra("username", currentUsername);
+            startActivity(intent);
+        });
 
         Button buttonLogout = findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
@@ -54,25 +63,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         applyResolvedTheme();
     }
 
-    /** Routes location buttons to the correct detail screen. */
     @Override
-    public void onClick(View view) {
-        Intent intent;
-        int id = view.getId();
-        if (id == R.id.buttonChampaign) {
-            intent = new Intent(this, DetailsActivity.class);
-            intent.putExtra("city", "Champaign");
-            startActivity(intent);
-        } else if (id == R.id.buttonChicago) {
-            intent = new Intent(this, DetailsActivity.class);
-            intent.putExtra("city", "Chicago");
-            startActivity(intent);
-        } else if (id == R.id.buttonLA) {
-            intent = new Intent(this, DetailsActivity.class);
-            intent.putExtra("city", "Los Angeles");
-            startActivity(intent);
-        } else if (id == R.id.buttonAddLocation) {
-            // Implement this action to add a new location to the list of locations
+    protected void onResume() {
+        super.onResume();
+        loadCities();
+    }
+
+    private void loadCities() {
+        cityContainer.removeAllViews();
+
+        ArrayList<String> cities = databaseHelper.getCitiesForUser(currentUsername);
+
+        for (String city : cities) {
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setPadding(12, 12, 12, 12);
+
+            TextView cityName = new TextView(this);
+            cityName.setText(city);
+            cityName.setLayoutParams(new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1
+            ));
+
+            Button detailsButton = new Button(this);
+            detailsButton.setText("Show Details");
+            detailsButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                intent.putExtra("city", city);
+                startActivity(intent);
+            });
+
+            row.addView(cityName);
+            row.addView(detailsButton);
+            cityContainer.addView(row);
         }
     }
 
