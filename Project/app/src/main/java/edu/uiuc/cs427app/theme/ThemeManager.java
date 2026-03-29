@@ -110,8 +110,6 @@ public final class ThemeManager {
 
     /** Returns true for rows that should use the card color. */
     private static boolean isCardContainer(int viewId) {
-        return viewId == R.id.locationRowChampaign
-                || viewId == R.id.locationRowChicago
-                || viewId == R.id.locationRowLosAngeles;
+        return false;
     }
 }

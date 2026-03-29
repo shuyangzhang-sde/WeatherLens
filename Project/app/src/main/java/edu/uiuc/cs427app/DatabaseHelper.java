@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 /** SQLite helper for user accounts and stored theme prompts. */
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -17,10 +18,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_USERS = "users";
     private static final String COL_USER_ID = "id";
+
+
     private static final String COL_USERNAME = "username";
     private static final String COL_PASSWORD = "password";
     private static final String COL_THEME_DESC = "theme_description";
     private static final String TABLE_CITIES = "cities";
+    private static final String COL_CITY_ID = "id";
+    private static final String COL_CITY_USERNAME = "username";
+    private static final String COL_CITY_NAME = "city";
 
     /** Creates or opens the local database. */
     public DatabaseHelper(Context context) {
@@ -36,6 +42,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_PASSWORD + " TEXT NOT NULL, "
                 + COL_THEME_DESC + " TEXT)";
         db.execSQL(createUsersTable);
+
+        String createCitiesTable = "CREATE TABLE " + TABLE_CITIES + " ("
+                + COL_CITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_CITY_USERNAME + " TEXT NOT NULL, "
+                + COL_CITY_NAME + " TEXT NOT NULL)";
+        db.execSQL(createCitiesTable);
     }
 
     /** Recreates the schema during upgrade. */
@@ -112,4 +124,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return theme;
     }
+
+    /** Adds a city for a given user. */
+    public boolean addCityForUser(String username, String city) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_CITY_USERNAME, username);
+        values.put(COL_CITY_NAME, city);
+
+        long result = db.insert(TABLE_CITIES, null, values);
+        return result != -1;
+    }
+
+    /** Checks whether a user already added a specific city. */
+    public boolean cityExistsForUser(String username, String city) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_CITIES
+                        + " WHERE " + COL_CITY_USERNAME + " = ? AND " + COL_CITY_NAME + " = ?",
+                new String[]{username, city});
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
+    /** Returns all saved cities for a user. */
+    public ArrayList<String> getCitiesForUser(String username) {
+        ArrayList<String> cities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_CITY_NAME + " FROM " + TABLE_CITIES
+                        + " WHERE " + COL_CITY_USERNAME + " = ?",
+                new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            do {
+                cities.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return cities;
+    }
+
+
 }
