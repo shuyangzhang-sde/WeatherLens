@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity{
         finish();
     }
 
+    /** Terminates thread handling LLM-driven customization **/
     @Override
     protected void onDestroy() {
         super.onDestroy();
