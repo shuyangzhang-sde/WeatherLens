@@ -109,7 +109,7 @@ This meeting was used to finalize changes for the iteration 3 part 1 submission.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|   ojama2    |          Implemented API Call its processing to apply theme to MainActivity page               |         Begin looking into tasks for iteration 3 part 2            |
+|   ojama2    |          Implemented API Call and its processing to apply theme to MainActivity page               |         Begin looking into tasks for iteration 3 part 2            |
 |   sz94    |              Implemented login/logout feature           |          Begin looking into tasks for iteration 3 part 2           |
 |   akshayr4    |            Implemented add cities and backend for persistence             |         Begin looking into tasks for iteration 3 part 2            |
 |   yuchen87    |          Created tools to parse API Call into JSON format for theme               |          Begin looking into tasks for iteration 3 part 2           |
