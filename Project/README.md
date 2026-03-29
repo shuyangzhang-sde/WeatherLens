@@ -83,26 +83,26 @@ This week, we completed all of the requirements of iteration 2 and combined our 
 ### Project Week 4
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This weekly meeting was used to divide tasks for the upcoming iteration 3 part 1 deadline based on which portions of the project people looked into and felt comfortable with.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led weekly meeting, assigned tasks for iteration 3 part 1, began looking into LLM-driven UI customization               |           Implement LLM-driven UI customization          |
+|   sz94    |           began looking into login/logout implementation              |          Implement login/logout           |
+|   akshayr4    |          began looking into adding/removing cities               |          Implement add/remove cities           |
+|   yuchen87    |             began looking into LLM-driven UI customization            |         Implement LLM-driven UI customization            |
+|   mj45    |            began looking into adding/removing cities             |          Implement add/remove cities           |
+|   varsham3    |            began looking into adding/removing cities             |         Implement add/remove cities            |
+|   sakalli2    |           began looking into login/logout implementation              |          Implement login/logout           |
 |       |                         |                     |
 
 ### Project Week 5
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
 Explain the overall team progress and a summary of discussion
