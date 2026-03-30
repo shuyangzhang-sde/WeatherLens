@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity{
         loadCities();
     }
 
+/** Loads in Citites and manages them **/
     private void loadCities() {
         cityContainer.removeAllViews();
 
@@ -114,8 +115,16 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             });
 
+            Button removeButton = new Button(this);
+            removeButton.setText("Remove");
+            removeButton.setOnClickListener(v -> {
+                databaseHelper.removeCityForUser(currentUsername, city);
+                loadCities(); // refresh list after deletion
+            });
+
             row.addView(cityName);
             row.addView(detailsButton);
+            row.addView(removeButton);
             cityContainer.addView(row);
         }
     }

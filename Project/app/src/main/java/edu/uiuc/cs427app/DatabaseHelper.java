@@ -136,6 +136,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    /** Removes a city for a given user. */
+    public boolean removeCityForUser(String username, String city) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int rowsDeleted = db.delete(
+                TABLE_CITIES,
+                COL_CITY_USERNAME + " = ? AND " + COL_CITY_NAME + " = ?",
+                new String[]{username, city}
+        );
+
+        return rowsDeleted > 0;
+    }
+
     /** Checks whether a user already added a specific city. */
     public boolean cityExistsForUser(String username, String city) {
         SQLiteDatabase db = this.getReadableDatabase();
