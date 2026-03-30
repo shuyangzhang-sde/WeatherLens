@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity{
     private View hider;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private DatabaseHelper databaseHelper;
+    private ThemeSpec activeTheme = ThemeDefaults.defaultTheme();
 
     private LinearLayout cityContainer;
 
@@ -82,13 +83,15 @@ public class MainActivity extends AppCompatActivity{
         applyResolvedTheme();
     }
 
+    /** For returning to main page **/
     @Override
     protected void onResume() {
         super.onResume();
         loadCities();
+        ThemeManager.applyTheme(this, activeTheme);
     }
 
-/** Loads in Citites and manages them **/
+    /** Loads in Cities and manages them **/
     private void loadCities() {
         cityContainer.removeAllViews();
 
@@ -120,6 +123,7 @@ public class MainActivity extends AppCompatActivity{
             removeButton.setOnClickListener(v -> {
                 databaseHelper.removeCityForUser(currentUsername, city);
                 loadCities(); // refresh list after deletion
+                ThemeManager.applyTheme(this, activeTheme);
             });
 
             row.addView(cityName);
@@ -137,15 +141,18 @@ public class MainActivity extends AppCompatActivity{
 
                 runOnUiThread(() -> {
                     try {
-                        ThemeManager.applyTheme(this, theme);
+                        activeTheme = theme;
+                        ThemeManager.applyTheme(this, activeTheme);
                     } catch (Throwable uiThrowable) {
-                        ThemeManager.applyTheme(this, ThemeDefaults.defaultTheme());
+                        activeTheme = ThemeDefaults.defaultTheme();
+                        ThemeManager.applyTheme(this, activeTheme);
                     }
                     hider.setVisibility(View.VISIBLE);
                 });
             } catch (Throwable throwable) {
                 runOnUiThread(() -> {
-                    ThemeManager.applyTheme(this, ThemeDefaults.defaultTheme());
+                    activeTheme = ThemeDefaults.defaultTheme();
+                    ThemeManager.applyTheme(this, activeTheme);
                     hider.setVisibility(View.VISIBLE);
                 });
             }
