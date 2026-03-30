@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "cs427app.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_USERS = "users";
     private static final String COL_USER_ID = "id";

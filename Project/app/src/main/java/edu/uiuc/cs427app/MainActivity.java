@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        if (databaseHelper == null) return;
         loadCities();
         ThemeManager.applyTheme(this, activeTheme);
     }
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
                 runOnUiThread(() -> {
                     activeTheme = ThemeDefaults.defaultTheme();
                     ThemeManager.applyTheme(this, activeTheme);
-                    hider.setVisibility(View.VISIBLE);
+                     hider.setVisibility(View.VISIBLE);
                 });
             }
         });
