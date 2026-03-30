@@ -76,7 +76,7 @@ This week, we completed all of the requirements of iteration 2 and combined our 
 | yuchen87 | Worked on UML Class Diagram | Understand starter codebase ahead of iteration 3 tasks |
 | sz94 | Chose to work on UML. Collaborated with the teammate assigned to UML task, brainstormed, reviewed and refined details. Helped complete the PDF submitted to the TA. | Understand Iteration 3 requirements. |
 | varsham3 | worked on component trasition graph | begin looking through iteration 3 requirements and brainstorm implementation possibilities|
-|       |                         |                     |
+| mj45      | Worked on component transition graph |Started brainstorming for iteration 3|
 |       |                         |                     |
 |       |                         |                     |
 
