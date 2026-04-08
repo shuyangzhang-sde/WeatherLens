@@ -2,6 +2,12 @@
 
 The code for CS427 Android app.
 
+## Gemini Key Setup
+
+Set `GEMINI_KEY` in `Project/gradle.properties` (or your local gradle properties source) so
+`BuildConfig.GEMINI_KEY` is populated at build time.
+Do not hardcode API keys in Java source files.
+
 ## Team #304 member information
 
 | Name | NetID | GitHub ID | Role | Experience |
