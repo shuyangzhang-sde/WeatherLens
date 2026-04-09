@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "cs427app.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String TABLE_USERS = "users";
     private static final String COL_USER_ID = "id";
@@ -28,6 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_CITY_USERNAME = "username";
     private static final String COL_CITY_NAME = "city";
 
+    private static final String COL_THEME_JSON = "theme_json";
+
     /** Creates or opens the local database. */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_USERNAME + " TEXT UNIQUE NOT NULL, "
                 + COL_PASSWORD + " TEXT NOT NULL, "
-                + COL_THEME_DESC + " TEXT)";
+                + COL_THEME_DESC + " TEXT, "
+                + COL_THEME_JSON + " TEXT)";
         db.execSQL(createUsersTable);
 
         String createCitiesTable = "CREATE TABLE " + TABLE_CITIES + " ("
@@ -122,7 +125,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             theme = cursor.getString(0);
         }
         cursor.close();
-        return theme;
+        return theme != null ? theme : "";
+    }
+
+    /** Returns cached JSON of user theme when logging in **/
+    public String getThemeJson(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COL_THEME_JSON + " FROM " + TABLE_USERS
+                        + " WHERE " + COL_USERNAME + " = ?",
+                new String[]{username});
+        String json = null;
+        if (cursor.moveToFirst()) {
+            json = cursor.getString(0);
+        }
+        cursor.close();
+        return json != null ? json : "";
+    }
+
+    /** Updated cached JSON of user theme when logging in **/
+    public void updateThemeJson(String username, String themeJson) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_THEME_JSON, themeJson);
+        db.update(TABLE_USERS, values, COL_USERNAME + " = ?", new String[]{username});
     }
 
     /** Adds a city for a given user. */

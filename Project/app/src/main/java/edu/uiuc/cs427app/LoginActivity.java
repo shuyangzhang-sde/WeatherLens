@@ -64,18 +64,17 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (themeDescription.isEmpty()) {
-            Toast.makeText(this, "Please enter a theme description",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         if (databaseHelper.checkUser(username, password)) {
+            String themeJson = null;
+            if (themeDescription.isEmpty()) {
+                themeDescription = databaseHelper.getUserThemeDescription(username);
+                themeJson = databaseHelper.getThemeJson(username);
+            }
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            navigateToMain(username, editThemeDescription.getText().toString().trim(), null);
-        } else {
-            Toast.makeText(this, "Invalid username or password",
-                    Toast.LENGTH_SHORT).show();
+            navigateToMain(username, themeDescription, themeJson);
+        }
+        else {
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
         }
     }
 

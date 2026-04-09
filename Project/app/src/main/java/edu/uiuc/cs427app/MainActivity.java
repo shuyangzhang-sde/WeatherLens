@@ -136,14 +136,24 @@ public class MainActivity extends AppCompatActivity{
 
     /** Applies a validated theme, or the default theme when generation fails. */
     private void applyResolvedTheme() {
+        String cachedJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (cachedJson != null && !cachedJson.isEmpty()) {
+            activeTheme = ThemeParser.parseThemeJsonOrDefault(cachedJson);
+            ThemeManager.applyTheme(this, activeTheme);
+            hider.setVisibility(View.VISIBLE);
+            return;
+        }
+
         executor.execute(() -> {
             try {
-                ThemeSpec theme = ThemeParser.parseThemeJsonOrDefault(jsonRequest(currentPrompt));
+                String themeJson = jsonRequest(currentPrompt);
+                ThemeSpec theme = ThemeParser.parseThemeJsonOrDefault(themeJson);
 
                 runOnUiThread(() -> {
                     try {
                         activeTheme = theme;
                         ThemeManager.applyTheme(this, activeTheme);
+                        databaseHelper.updateThemeJson(currentUsername, themeJson);
                     } catch (Throwable uiThrowable) {
                         activeTheme = ThemeDefaults.defaultTheme();
                         ThemeManager.applyTheme(this, activeTheme);
@@ -154,7 +164,7 @@ public class MainActivity extends AppCompatActivity{
                 runOnUiThread(() -> {
                     activeTheme = ThemeDefaults.defaultTheme();
                     ThemeManager.applyTheme(this, activeTheme);
-                     hider.setVisibility(View.VISIBLE);
+                    hider.setVisibility(View.VISIBLE);
                 });
             }
         });
