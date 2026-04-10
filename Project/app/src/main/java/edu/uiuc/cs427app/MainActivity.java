@@ -119,6 +119,14 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             });
 
+            Button mapButton = new Button(this);
+            mapButton.setText("Map");
+            mapButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                intent.putExtra("city", city);
+                startActivity(intent);
+            });
+
             Button removeButton = new Button(this);
             removeButton.setText("Remove");
             removeButton.setOnClickListener(v -> {
@@ -129,6 +137,7 @@ public class MainActivity extends AppCompatActivity{
 
             row.addView(cityName);
             row.addView(detailsButton);
+            row.addView(mapButton);
             row.addView(removeButton);
             cityContainer.addView(row);
         }
