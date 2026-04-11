@@ -24,6 +24,7 @@
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".DetailsActivity" android:exported="true" />
         <activity android:name=".AddCityActivity" />
+        <activity android:name=".WeatherInsightsActivity" android:exported="false" />
     </application>
 
 </manifest>

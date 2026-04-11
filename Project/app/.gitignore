@@ -1,1 +1,16 @@
+# Build outputs
 /build
+
+# Android Studio / IntelliJ (module-local)
+*.iml
+.idea/
+
+# Local machine / OS junk
+.DS_Store
+
+# NDK / CMake
+.externalNativeBuild/
+.cxx/
+
+# Profiling
+*.hprof
