@@ -17,14 +17,31 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Provides access to current weather from the OpenWeatherMap API using a textual
+ * city query consistent with application storage. Networking is implemented with
+ * {@link HttpURLConnection}, consistent with other HTTP usage in this project.
+ */
 public final class WeatherRepository {
 
     private static final String OPEN_WEATHER_ENDPOINT =
             "https://api.openweathermap.org/data/2.5/weather";
 
+    /**
+     * Private constructor: this type exposes only static methods.
+     */
     private WeatherRepository() {
     }
 
+    /**
+     * Performs a blocking HTTP GET for the given city and API key, parses JSON on success,
+     * and returns either {@link WeatherData} or an error description. This method must not
+     * be invoked on the Android main thread.
+     *
+     * @param cityQuery free-text location query (for example, a name stored in the database)
+     * @param apiKey    service credential from build configuration (must not be embedded in source)
+     * @return {@link WeatherResult#ok(WeatherData)} or {@link WeatherResult#error(String)}
+     */
     public static WeatherResult fetchCurrentWeather(String cityQuery, String apiKey) {
         if (cityQuery == null || cityQuery.trim().isEmpty()) {
             return WeatherResult.error("City name is missing.");
@@ -59,6 +76,14 @@ public final class WeatherRepository {
         }
     }
 
+    /**
+     * Selects the appropriate response stream for the HTTP status code.
+     *
+     * @param connection active connection
+     * @param code         HTTP status code
+     * @return stream containing the response body
+     * @throws Exception if the connection cannot provide a stream
+     */
     private static InputStream selectStream(HttpURLConnection connection, int code) throws Exception {
         if (code >= 400) {
             InputStream err = connection.getErrorStream();
@@ -67,6 +92,13 @@ public final class WeatherRepository {
         return connection.getInputStream();
     }
 
+    /**
+     * Reads the entire UTF-8 response body into a single string.
+     *
+     * @param stream response stream (may be {@code null})
+     * @return concatenated lines, or an empty string when the stream is {@code null}
+     * @throws Exception if reading fails
+     */
     private static String readStreamToString(InputStream stream) throws Exception {
         if (stream == null) {
             return "";
@@ -80,6 +112,14 @@ public final class WeatherRepository {
         return builder.toString();
     }
 
+    /**
+     * Maps a non-success HTTP status to a concise message, including the provider's
+     * {@code message} field when present in the error JSON.
+     *
+     * @param code HTTP status code
+     * @param body raw response body
+     * @return user-facing error text
+     */
     private static String mapHttpError(int code, String body) {
         try {
             if (body != null && !body.isEmpty()) {
@@ -94,6 +134,13 @@ public final class WeatherRepository {
         return "Weather service returned HTTP " + code + ".";
     }
 
+    /**
+     * Parses a successful OpenWeatherMap JSON payload into {@link WeatherData}.
+     *
+     * @param jsonBody          response body text
+     * @param fallbackCityName  city string used when the {@code name} field is empty
+     * @return success with {@link WeatherData}, or failure when required fields are missing
+     */
     private static WeatherResult parseOpenWeatherJson(String jsonBody, String fallbackCityName) {
         try {
             JSONObject root = new JSONObject(jsonBody);
@@ -147,6 +194,14 @@ public final class WeatherRepository {
         }
     }
 
+    /**
+     * Formats the observation instant in the city's local offset using the API {@code timezone}
+     * field (shift in seconds from UTC).
+     *
+     * @param utcEpochSeconds        Unix epoch seconds for the observation time (UTC)
+     * @param timezoneShiftSeconds   offset from UTC to local civil time, in seconds
+     * @return formatted date-time string including offset abbreviation
+     */
     private static String formatCityLocalTime(long utcEpochSeconds, int timezoneShiftSeconds) {
         ZoneOffset offset = ZoneOffset.ofTotalSeconds(timezoneShiftSeconds);
         ZoneId zoneId = ZoneId.ofOffset("UTC", offset);
@@ -156,6 +211,13 @@ public final class WeatherRepository {
         return zdt.format(formatter);
     }
 
+    /**
+     * Builds a wind summary using metric wind speed and, when available, an eight-point compass.
+     *
+     * @param speedMs wind speed in meters per second; {@code NaN} when unknown
+     * @param deg     wind direction in degrees; {@code NaN} when unknown
+     * @return formatted wind line
+     */
     private static String formatWind(double speedMs, double deg) {
         if (Double.isNaN(speedMs)) {
             return "—";
@@ -167,6 +229,12 @@ public final class WeatherRepository {
         return speedPart + ", from " + degreesToCompass(deg);
     }
 
+    /**
+     * Converts a meteorological wind direction in degrees to the nearest cardinal or intercardinal label.
+     *
+     * @param degrees direction in degrees (clockwise from north)
+     * @return compass abbreviation (for example, {@code NE})
+     */
     private static String degreesToCompass(double degrees) {
         String[] dirs = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
         int idx = (int) Math.round(degrees / 45.0) % 8;
@@ -176,6 +244,12 @@ public final class WeatherRepository {
         return dirs[idx];
     }
 
+    /**
+     * Applies title-style capitalization to a short weather description for display consistency.
+     *
+     * @param raw provider-supplied description text
+     * @return capitalized phrase, or an empty string when input is null or blank
+     */
     private static String capitalizeWords(String raw) {
         if (raw == null || raw.isEmpty()) {
             return "";
