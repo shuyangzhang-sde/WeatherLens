@@ -18,9 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Provides access to current weather from the OpenWeatherMap API using a textual
- * city query consistent with application storage. Networking is implemented with
- * {@link HttpURLConnection}, consistent with other HTTP usage in this project.
+ * Fetches current weather from the OpenWeatherMap HTTP API using the same kind of
+ * city name string the app stores for each user. Requests use HttpURLConnection, in
+ * line with how other network code in the project is written.
  */
 public final class WeatherRepository {
 
@@ -28,19 +28,20 @@ public final class WeatherRepository {
             "https://api.openweathermap.org/data/2.5/weather";
 
     /**
-     * Private constructor: this type exposes only static methods.
+     * Hides the default constructor; callers should use the static fetch method only.
      */
     private WeatherRepository() {
     }
 
     /**
-     * Performs a blocking HTTP GET for the given city and API key, parses JSON on success,
-     * and returns either {@link WeatherData} or an error description. This method must not
-     * be invoked on the Android main thread.
+     * Looks up current weather for the given city text and API key. The call blocks until
+     * the HTTP request finishes and the body is parsed, so it should run on a background
+     * thread, not the UI thread. On success you get a WeatherResult carrying WeatherData;
+     * on failure the result carries an error message instead of invented numbers.
      *
-     * @param cityQuery free-text location query (for example, a name stored in the database)
-     * @param apiKey    service credential from build configuration (must not be embedded in source)
-     * @return {@link WeatherResult#ok(WeatherData)} or {@link WeatherResult#error(String)}
+     * @param cityQuery free-text location query, typically the city string stored for the user
+     * @param apiKey    OpenWeatherMap API key supplied from build configuration, not hardcoded in source
+     * @return a WeatherResult containing parsed data on success, or an error description on failure
      */
     public static WeatherResult fetchCurrentWeather(String cityQuery, String apiKey) {
         if (cityQuery == null || cityQuery.trim().isEmpty()) {
@@ -77,12 +78,13 @@ public final class WeatherRepository {
     }
 
     /**
-     * Selects the appropriate response stream for the HTTP status code.
+     * For client or server error status codes the body usually sits on the error stream;
+     * otherwise the normal input stream is used. Throws if the connection cannot supply a stream.
      *
-     * @param connection active connection
-     * @param code         HTTP status code
-     * @return stream containing the response body
-     * @throws Exception if the connection cannot provide a stream
+     * @param connection open HTTP connection for the weather request
+     * @param code         HTTP response status code
+     * @return the input stream that should be read for the response body
+     * @throws Exception if the connection cannot provide a response stream
      */
     private static InputStream selectStream(HttpURLConnection connection, int code) throws Exception {
         if (code >= 400) {
@@ -93,11 +95,12 @@ public final class WeatherRepository {
     }
 
     /**
-     * Reads the entire UTF-8 response body into a single string.
+     * Reads the whole response as UTF-8 text. A null stream yields an empty string rather than failing.
+     * Any I/O problem while reading is thrown to the caller.
      *
-     * @param stream response stream (may be {@code null})
-     * @return concatenated lines, or an empty string when the stream is {@code null}
-     * @throws Exception if reading fails
+     * @param stream response body stream, or null
+     * @return full body as one string, or an empty string when the stream is null
+     * @throws Exception if reading or closing the stream fails
      */
     private static String readStreamToString(InputStream stream) throws Exception {
         if (stream == null) {
@@ -113,12 +116,13 @@ public final class WeatherRepository {
     }
 
     /**
-     * Maps a non-success HTTP status to a concise message, including the provider's
-     * {@code message} field when present in the error JSON.
+     * Turns a failed HTTP status into a short message for the user. When the JSON body
+     * includes a top-level "message" string from OpenWeatherMap, that text is included;
+     * otherwise the method falls back to a generic line that names the status code.
      *
-     * @param code HTTP status code
-     * @param body raw response body
-     * @return user-facing error text
+     * @param code HTTP status code from the failed response
+     * @param body raw response body text, if any
+     * @return a concise, user-facing error message
      */
     private static String mapHttpError(int code, String body) {
         try {
@@ -129,17 +133,21 @@ public final class WeatherRepository {
                 }
             }
         } catch (Exception ignored) {
-            // Ignore parse errors; a generic message is returned below.
+            // If the error body is not JSON, ignore and use the generic message below.
         }
         return "Weather service returned HTTP " + code + ".";
     }
 
     /**
-     * Parses a successful OpenWeatherMap JSON payload into {@link WeatherData}.
+     * Expects the JSON from a successful current-weather response. It fills a WeatherData
+     * object when temperature, conditions, and related fields are present, and keeps the
+     * original JSON string so other screens can reuse it. If a piece is missing, it returns
+     * an error WeatherResult instead of guessing values. The fallback city name is used only
+     * when the payload does not include a usable "name" field.
      *
-     * @param jsonBody          response body text
-     * @param fallbackCityName  city string used when the {@code name} field is empty
-     * @return success with {@link WeatherData}, or failure when required fields are missing
+     * @param jsonBody          raw JSON response body from a 200 OK response
+     * @param fallbackCityName  city label to use when the JSON name field is empty or absent
+     * @return a successful WeatherResult with populated WeatherData, or an error WeatherResult
      */
     private static WeatherResult parseOpenWeatherJson(String jsonBody, String fallbackCityName) {
         try {
@@ -195,12 +203,13 @@ public final class WeatherRepository {
     }
 
     /**
-     * Formats the observation instant in the city's local offset using the API {@code timezone}
-     * field (shift in seconds from UTC).
+     * Formats the observation time in the city's local zone. The API supplies a timezone
+     * value as seconds east or west of UTC; together with the Unix observation time in UTC,
+     * that yields a civil clock time and offset label for the UI.
      *
-     * @param utcEpochSeconds        Unix epoch seconds for the observation time (UTC)
-     * @param timezoneShiftSeconds   offset from UTC to local civil time, in seconds
-     * @return formatted date-time string including offset abbreviation
+     * @param utcEpochSeconds       observation instant as Unix epoch seconds in UTC
+     * @param timezoneShiftSeconds  offset from UTC to local civil time, in seconds, as provided by the API
+     * @return formatted date, time, and zone offset suitable for display
      */
     private static String formatCityLocalTime(long utcEpochSeconds, int timezoneShiftSeconds) {
         ZoneOffset offset = ZoneOffset.ofTotalSeconds(timezoneShiftSeconds);
@@ -212,11 +221,13 @@ public final class WeatherRepository {
     }
 
     /**
-     * Builds a wind summary using metric wind speed and, when available, an eight-point compass.
+     * Produces a single line for wind: metric speed in meters per second, and when the
+     * service sends a direction in degrees, an approximate compass direction such as NE.
+     * Missing speed is shown as an em dash; missing direction simply omits the compass part.
      *
-     * @param speedMs wind speed in meters per second; {@code NaN} when unknown
-     * @param deg     wind direction in degrees; {@code NaN} when unknown
-     * @return formatted wind line
+     * @param speedMs wind speed in meters per second, or NaN when not provided
+     * @param deg     wind direction in degrees clockwise from north, or NaN when not provided
+     * @return a single formatted line describing wind speed and optional direction
      */
     private static String formatWind(double speedMs, double deg) {
         if (Double.isNaN(speedMs)) {
@@ -230,10 +241,11 @@ public final class WeatherRepository {
     }
 
     /**
-     * Converts a meteorological wind direction in degrees to the nearest cardinal or intercardinal label.
+     * Maps a wind direction in degrees, measured clockwise from north, to the nearest
+     * of eight compass labels (N, NE, E, and so on).
      *
-     * @param degrees direction in degrees (clockwise from north)
-     * @return compass abbreviation (for example, {@code NE})
+     * @param degrees wind direction in degrees, clockwise from north
+     * @return the nearest compass octant abbreviation
      */
     private static String degreesToCompass(double degrees) {
         String[] dirs = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
@@ -245,10 +257,11 @@ public final class WeatherRepository {
     }
 
     /**
-     * Applies title-style capitalization to a short weather description for display consistency.
+     * Tidies a short description from the API by capitalizing each word so it reads cleanly
+     * in the weather screen. Null or blank input returns an empty string.
      *
-     * @param raw provider-supplied description text
-     * @return capitalized phrase, or an empty string when input is null or blank
+     * @param raw provider-supplied weather description text
+     * @return title-cased words, or an empty string when the input is null or blank
      */
     private static String capitalizeWords(String raw) {
         if (raw == null || raw.isEmpty()) {
