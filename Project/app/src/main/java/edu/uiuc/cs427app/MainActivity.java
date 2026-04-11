@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             });
 
+            Button weatherButton = new Button(this);
+            weatherButton.setText(R.string.weather_screen_title);
+            weatherButton.setOnClickListener(v -> openWeatherScreen(city));
+
             Button removeButton = new Button(this);
             removeButton.setText("Remove");
             removeButton.setOnClickListener(v -> {
@@ -129,9 +133,22 @@ public class MainActivity extends AppCompatActivity{
 
             row.addView(cityName);
             row.addView(detailsButton);
+            row.addView(weatherButton);
             row.addView(removeButton);
             cityContainer.addView(row);
         }
+    }
+
+    /**
+     * Opens {@link WeatherActivity} for the specified city. The city name originates from
+     * the database list for the current user and is passed as {@link WeatherActivity#EXTRA_CITY}.
+     *
+     * @param city city label associated with the selected row
+     */
+    private void openWeatherScreen(String city) {
+        Intent intent = new Intent(this, WeatherActivity.class);
+        intent.putExtra(WeatherActivity.EXTRA_CITY, city);
+        startActivity(intent);
     }
 
     /** Applies a validated theme, or the default theme when generation fails. */
