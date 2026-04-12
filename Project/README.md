@@ -127,40 +127,38 @@ This meeting was used to finalize changes for the iteration 3 part 1 submission.
 ### Project Week 6
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This meeting was used mainly to assign task for the current iteration and discuss implementation ideas and potential obstacles.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led weekly meeting, assigned tasks for iteration 4, began looking into issues with theme persistence               |           Add theme persistence as user navigates through app, ensure additions align with rubric          |
+|   sz94    |           began looking into weather details implementation              |          Implement weather details          |
+|   akshayr4    |          began looking into adding interactive map               |          Implement interactive map           |
+|   yuchen87    |             began looking into LLM-driven weather insights            |         Implement weather insights            |
+|   mj45    |            began looking into adding interactive map               |          Implement interactive map           |
+|   varsham3    |            began looking into adding interactive map               |          Implement interactive map           |
+|   sakalli2    |           began looking into weather details implementation              |          Implement weather details          |
 
 ### Project Week 7
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This meeting was used to integrate additions made for iteration 4 and review comments left by the TA on the previous iteration. Merge conflicts were resolved and the app was thoroughly tested.
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Added theme persistence across all pages, fixed formatting for city name display and weather insight response, led integration call               |         Begin looking into tasks for iteration 5            |
+|   sz94    |              Implemented weather details           |          Begin looking into tasks for iteration 5           |
+|   akshayr4    |            Implemented interactive map             |         Begin looking into tasks for iteration 5            |
+|   yuchen87    |          Implemented prompt and response logic for weather insights               |          Begin looking into tasks for iteration 5           |
+|   mj45    |           Implemented interactive map             |          Begin looking into tasks for iteration 5           |
+|    varsham3   |            Implemented interactive map             |          Begin looking into tasks for iteration 5           |
+|    sakalli3   |           Implemented weather details             |          Begin looking into tasks for iteration 5           |
 
 ### Project Week 8
 
