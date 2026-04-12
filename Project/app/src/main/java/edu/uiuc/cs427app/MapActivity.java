@@ -2,7 +2,6 @@ package edu.uiuc.cs427app;
 
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,53 +18,69 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     double latitude;
     double longitude;
 
+    //gets city name and coords, and then sets up the map
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         city = getIntent().getStringExtra("city");
 
         TextView cityName = findViewById(R.id.cityName);
-        TextView latLong = findViewById(R.id.latLong);
+        TextView coords = findViewById(R.id.cityCoordinates);
 
         cityName.setText(city);
 
-        if (city.equalsIgnoreCase("chicago")) {
-            latitude = 41.8781;
-            longitude = -87.6298;
-        }
-        else if (city.equalsIgnoreCase("new york")) {
-            latitude = 40.7128;
-            longitude = -74.0060;
-        }
-        else if (city.equalsIgnoreCase("los angeles")) {
-            latitude = 34.0522;
-            longitude = -118.2437;
-        }
-        else {
-            latitude = 39.8283;
-            longitude = -98.5795;
+        //use geocoder like in add city
+        android.location.Geocoder geocoder = new android.location.Geocoder(this);
+
+        try {
+            java.util.List<android.location.Address> list = geocoder.getFromLocationName(city, 1);
+
+            if (list != null && list.size() > 0) {
+                android.location.Address address = list.get(0);
+                latitude = address.getLatitude();
+                longitude = address.getLongitude();
+            } else {
+                latitude = 0;
+                longitude = 0;
+            }
+
+        } catch (Exception e) {
+            latitude = 0;
+            longitude = 0;
         }
 
-        latLong.setText("Lat: " + latitude + ", Lon: " + longitude);
+        coords.setText("Latitude: " + latitude + ", Longitude: " + longitude);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
+        if (mapFrag != null) {
+            mapFrag.getMapAsync(this);
         }
     }
 
+    //once map loads: add marker, zoom in
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(this, "Map is ready", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "map is ready", Toast.LENGTH_SHORT).show(); //toast for testing
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        LatLng location = new LatLng(latitude, longitude);
+        LatLng coord = new LatLng(latitude, longitude);
 
-        googleMap.addMarker(new MarkerOptions().position(location).title(city));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12));
+        googleMap.addMarker(new MarkerOptions().position(coord).title(city));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 10));
+    }
+
+    //sends ser back to city list when the back arrow is clicked
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
