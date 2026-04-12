@@ -15,6 +15,13 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeDefaults;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+import edu.uiuc.cs427app.theme.ThemePromptBuilder;
+import edu.uiuc.cs427app.theme.ThemeSpec;
+
 public class AddCityActivity extends AppCompatActivity {
 
     private EditText editTextCityName;
@@ -28,6 +35,11 @@ public class AddCityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_city);
+
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
+        }
 
         currentUsername = getIntent().getStringExtra("username");
         databaseHelper = new DatabaseHelper(this);

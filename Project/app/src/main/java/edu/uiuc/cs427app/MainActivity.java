@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
         buttonNew.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddCityActivity.class);
             intent.putExtra("username", currentUsername);
+            intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
             startActivity(intent);
         });
 
