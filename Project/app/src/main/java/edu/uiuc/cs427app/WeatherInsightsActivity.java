@@ -22,6 +22,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeDefaults;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+import edu.uiuc.cs427app.theme.ThemePromptBuilder;
+import edu.uiuc.cs427app.theme.ThemeSpec;
+
 /**
  * Weather insights screen for milestone 4. We ask Gemini for a few question ideas based on the
  * weather JSON, show them as buttons, then if you tap one we call Gemini again for the answer.
@@ -59,6 +66,11 @@ public class WeatherInsightsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.weather_insights_title);
+        }
+
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
         }
 
         cityName = safeString(getIntent().getStringExtra(EXTRA_CITY_NAME));
@@ -124,7 +136,8 @@ public class WeatherInsightsActivity extends AppCompatActivity {
                 + escapeForPrompt(question)
                 + "\n\nWeather JSON:\n"
                 + weatherContextJson
-                + "\n\nGive a concise, helpful answer. If something is not in the data, say so.";
+                + "\n\nGive a concise, helpful answer. If something is not in the data, say so."
+                + "Do not use markdown, asterisks, or any special formatting.";
     }
 
     private static String escapeForPrompt(String s) {
@@ -163,6 +176,11 @@ public class WeatherInsightsActivity extends AppCompatActivity {
             b.setOnClickListener(v -> fetchAnswerForQuestion(q));
             questionContainer.addView(b);
         }
+
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
+        }
     }
 
     /** Second Gemini call: fill in the answer TextView on the main thread when we're done. */
@@ -176,6 +194,11 @@ public class WeatherInsightsActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     setLoading(false);
                     answerText.setText(rawText.trim());
+
+                    String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+                    if (themeJson != null && !themeJson.isEmpty()) {
+                        ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
+                    }
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {

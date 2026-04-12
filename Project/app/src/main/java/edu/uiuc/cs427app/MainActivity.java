@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity{
 
     private LinearLayout cityContainer;
 
+    private String currentTheme = "";
+
     /** Restores the active user and applies the current theme. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity{
     private void openWeatherScreen(String city) {
         Intent intent = new Intent(this, WeatherActivity.class);
         intent.putExtra(WeatherActivity.EXTRA_CITY, city);
+        intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
         startActivity(intent);
     }
 
@@ -155,6 +158,7 @@ public class MainActivity extends AppCompatActivity{
     private void applyResolvedTheme() {
         String cachedJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
         if (cachedJson != null && !cachedJson.isEmpty()) {
+            currentTheme = cachedJson;
             activeTheme = ThemeParser.parseThemeJsonOrDefault(cachedJson);
             ThemeManager.applyTheme(this, activeTheme);
             hider.setVisibility(View.VISIBLE);
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity{
 
                 runOnUiThread(() -> {
                     try {
+                        currentTheme = themeJson;
                         activeTheme = theme;
                         ThemeManager.applyTheme(this, activeTheme);
                         databaseHelper.updateThemeJson(currentUsername, themeJson);

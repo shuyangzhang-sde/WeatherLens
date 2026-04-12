@@ -14,6 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeDefaults;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+import edu.uiuc.cs427app.theme.ThemePromptBuilder;
+import edu.uiuc.cs427app.theme.ThemeSpec;
+
 /**
  * Activity that displays current weather for a city selected from the main list.
  * Weather data is loaded from a remote API on a background thread. When loading
@@ -59,6 +66,11 @@ public class WeatherActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.weather_screen_title);
         }
 
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
+        }
+
         cityFromIntent = safeExtraCity(getIntent().getStringExtra(EXTRA_CITY));
         bindViews();
         wireInsightsButton();
@@ -102,6 +114,7 @@ public class WeatherActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WeatherInsightsActivity.class);
         intent.putExtra(WeatherInsightsActivity.EXTRA_CITY_NAME, cityFromIntent);
         intent.putExtra(WeatherInsightsActivity.EXTRA_WEATHER_JSON, lastSuccessJson);
+        intent.putExtra(ThemeContract.EXTRA_THEME_JSON, getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON));
         startActivity(intent);
     }
 
