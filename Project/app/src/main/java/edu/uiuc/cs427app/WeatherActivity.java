@@ -30,8 +30,7 @@ import edu.uiuc.cs427app.theme.ThemeSpec;
 public class WeatherActivity extends AppCompatActivity {
 
     /**
-     * Intent extra key for the city name. Matches {@link DetailsActivity} so that
-     * navigation from the main list remains consistent across screens.
+     * Intent extra key for the city name.
      */
     public static final String EXTRA_CITY = "city";
 

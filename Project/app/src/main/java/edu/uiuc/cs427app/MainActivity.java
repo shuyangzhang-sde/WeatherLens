@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         applyResolvedTheme();
     }
 
+    /** Applies theme when returning to main activity **/
     @Override
     protected void onResume() {
         super.onResume();
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         ThemeManager.applyTheme(this, activeTheme);
     }
 
+    /** Loads all buttons for an added city like weather and map **/
     private void loadCities() {
         cityContainer.removeAllViews();
 
@@ -111,19 +113,12 @@ public class MainActivity extends AppCompatActivity {
                     1
             ));
 
-            Button detailsButton = new Button(this);
-            detailsButton.setText("Show Details");
-            detailsButton.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra("city", city);
-                startActivity(intent);
-            });
-
             Button mapButton = new Button(this);
             mapButton.setText("Map");
             mapButton.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 intent.putExtra("city", city);
+                intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
                 startActivity(intent);
             });
             Button weatherButton = new Button(this);
@@ -139,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
             row.addView(cityName);
-            row.addView(detailsButton);
             row.addView(mapButton);
             row.addView(weatherButton);
             row.addView(removeButton);
@@ -198,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /** Sends reqeuest to get user theme from Gemini response **/
     private String jsonRequest(String input) throws Exception {
         JSONObject body = new JSONObject().put("contents", new JSONArray().put(new JSONObject().put("parts", new JSONArray().put(
                 new JSONObject().put("text", ThemePromptBuilder.buildUserPrompt(input)))))).put("generationConfig", new JSONObject()
@@ -224,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
         return theme;
     }
 
+    /** Returns to login page when logging out **/
     private void navigateToLogin() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -231,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    /** Teardown when exiting the app **/
     @Override
     protected void onDestroy() {
         super.onDestroy();

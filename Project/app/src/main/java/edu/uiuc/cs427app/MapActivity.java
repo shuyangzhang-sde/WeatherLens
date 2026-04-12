@@ -12,6 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     String city;
@@ -26,6 +30,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
         }
 
         city = getIntent().getStringExtra("city");
@@ -77,7 +86,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 10));
     }
 
-    //sends ser back to city list when the back arrow is clicked
+    //sends user back to city list when the back arrow is clicked
     @Override
     public boolean onSupportNavigateUp() {
         finish();
