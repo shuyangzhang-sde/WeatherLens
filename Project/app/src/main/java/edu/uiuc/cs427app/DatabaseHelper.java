@@ -10,7 +10,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-/** SQLite helper for user accounts and stored theme prompts. */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "cs427app.db";
@@ -18,7 +17,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_USERS = "users";
     private static final String COL_USER_ID = "id";
-
 
     private static final String COL_USERNAME = "username";
     private static final String COL_PASSWORD = "password";
@@ -30,12 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String COL_THEME_JSON = "theme_json";
 
-    /** Creates or opens the local database. */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    /** Creates the tables used by the app. */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createUsersTable = "CREATE TABLE " + TABLE_USERS + " ("
@@ -53,7 +49,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createCitiesTable);
     }
 
-    /** Recreates the schema during upgrade. */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CITIES);
@@ -61,7 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /** Hashes a password before storage or comparison. */
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -78,7 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    /** Inserts a new user with a stored theme description. */
     public boolean addUser(String username, String password, String themeDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -89,7 +82,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    /** Checks whether the provided credentials are valid. */
     public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String hashedPassword = hashPassword(password);
@@ -102,7 +94,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    /** Checks whether a username already exists. */
     public boolean userExists(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
@@ -113,7 +104,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    /** Returns the saved theme description for a user. */
     public String getUserThemeDescription(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
@@ -128,7 +118,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return theme != null ? theme : "";
     }
 
-    /** Returns cached JSON of user theme when logging in **/
     public String getThemeJson(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
@@ -143,7 +132,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return json != null ? json : "";
     }
 
-    /** Updated cached JSON of user theme when logging in **/
     public void updateThemeJson(String username, String themeJson) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -151,7 +139,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_USERS, values, COL_USERNAME + " = ?", new String[]{username});
     }
 
-    /** Adds a city for a given user. */
     public boolean addCityForUser(String username, String city) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -162,7 +149,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    /** Removes a city for a given user. */
     public boolean removeCityForUser(String username, String city) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -175,7 +161,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
-    /** Checks whether a user already added a specific city. */
     public boolean cityExistsForUser(String username, String city) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
@@ -188,7 +173,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    /** Returns all saved cities for a user. */
     public ArrayList<String> getCitiesForUser(String username) {
         ArrayList<String> cities = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -207,6 +191,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return cities;
     }
-
-
 }
