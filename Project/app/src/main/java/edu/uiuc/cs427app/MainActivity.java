@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity{
 
     private LinearLayout cityContainer;
 
+    private String currentTheme = "";
+
     /** Restores the active user and applies the current theme. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,10 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             });
 
+            Button weatherButton = new Button(this);
+            weatherButton.setText(R.string.weather_screen_title);
+            weatherButton.setOnClickListener(v -> openWeatherScreen(city));
+
             Button removeButton = new Button(this);
             removeButton.setText("Remove");
             removeButton.setOnClickListener(v -> {
@@ -129,15 +135,30 @@ public class MainActivity extends AppCompatActivity{
 
             row.addView(cityName);
             row.addView(detailsButton);
+            row.addView(weatherButton);
             row.addView(removeButton);
             cityContainer.addView(row);
         }
+    }
+
+    /**
+     * Opens {@link WeatherActivity} for the specified city. The city name originates from
+     * the database list for the current user and is passed as {@link WeatherActivity#EXTRA_CITY}.
+     *
+     * @param city city label associated with the selected row
+     */
+    private void openWeatherScreen(String city) {
+        Intent intent = new Intent(this, WeatherActivity.class);
+        intent.putExtra(WeatherActivity.EXTRA_CITY, city);
+        intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
+        startActivity(intent);
     }
 
     /** Applies a validated theme, or the default theme when generation fails. */
     private void applyResolvedTheme() {
         String cachedJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
         if (cachedJson != null && !cachedJson.isEmpty()) {
+            currentTheme = cachedJson;
             activeTheme = ThemeParser.parseThemeJsonOrDefault(cachedJson);
             ThemeManager.applyTheme(this, activeTheme);
             hider.setVisibility(View.VISIBLE);
@@ -151,6 +172,7 @@ public class MainActivity extends AppCompatActivity{
 
                 runOnUiThread(() -> {
                     try {
+                        currentTheme = themeJson;
                         activeTheme = theme;
                         ThemeManager.applyTheme(this, activeTheme);
                         databaseHelper.updateThemeJson(currentUsername, themeJson);

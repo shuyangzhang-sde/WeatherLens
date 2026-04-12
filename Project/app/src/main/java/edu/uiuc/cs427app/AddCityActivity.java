@@ -41,7 +41,7 @@ public class AddCityActivity extends AppCompatActivity {
     }
 /**handles saving a city**/
     private void saveCity() {
-        String cityName = editTextCityName.getText().toString().trim();
+        String cityName = properCap(editTextCityName.getText().toString().trim());
 
         if (cityName.isEmpty()) {
             Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show();
@@ -115,6 +115,22 @@ public class AddCityActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /** Ensures proper capitalization of city name after its typed for display **/
+    private static String properCap(String input) {
+        if (input == null || input.isEmpty()) return input;
+        String[] words = input.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                sb.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1).toLowerCase());
+                sb.append(" ");
+            }
+        }
+        return sb.toString().trim();
+    }
+
 /**clean up method**/
     @Override
     protected void onDestroy() {

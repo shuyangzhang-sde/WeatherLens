@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Team 304</string>
+    <string name="weather_insights_title">Weather Insights</string>
+    <string name="weather_insights_missing_context">Missing weather data for insights.</string>
+    <string name="weather_insights_questions_failed">Could not load suggested questions.</string>
+    <string name="weather_insights_network_error">Could not reach the insights service.</string>
+    <string name="weather_screen_title">Weather</string>
+    <string name="weather_insights_button">Weather Insights</string>
+    <string name="weather_label_temperature">Temperature: %1$s</string>
+    <string name="weather_label_condition">Conditions: %1$s</string>
+    <string name="weather_label_humidity">Humidity: %1$s</string>
+    <string name="weather_label_wind">Wind: %1$s</string>
+    <string name="weather_generic_error">Weather could not be loaded.</string>
+    <string name="weather_unknown_city">Unknown city</string>
 </resources>
