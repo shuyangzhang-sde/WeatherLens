@@ -3,7 +3,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFirstApp">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -24,6 +28,7 @@
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".DetailsActivity" android:exported="true" />
         <activity android:name=".AddCityActivity" />
+        <activity android:name=".MapActivity" android:exported="true" />
         <activity android:name=".WeatherActivity" android:exported="false" />
         <activity android:name=".WeatherInsightsActivity" android:exported="false" />
     </application>

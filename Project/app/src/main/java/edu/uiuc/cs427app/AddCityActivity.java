@@ -30,7 +30,7 @@ public class AddCityActivity extends AppCompatActivity {
     private String currentUsername;
     private DatabaseHelper databaseHelper;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-/** initializes activity ui**/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class AddCityActivity extends AppCompatActivity {
         buttonSaveCity.setOnClickListener(v -> saveCity());
         buttonCancel.setOnClickListener(v -> finish());
     }
-/**handles saving a city**/
+
     private void saveCity() {
         String cityName = properCap(editTextCityName.getText().toString().trim());
 
@@ -92,7 +92,7 @@ public class AddCityActivity extends AppCompatActivity {
             });
         });
     }
-/**Validates the city added**/
+
     private boolean isValidCity(String cityName) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 

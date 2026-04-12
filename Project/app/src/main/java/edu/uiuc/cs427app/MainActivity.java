@@ -28,7 +28,7 @@ import edu.uiuc.cs427app.theme.ThemeParser;
 import edu.uiuc.cs427app.theme.ThemePromptBuilder;
 import edu.uiuc.cs427app.theme.ThemeSpec;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private String currentUsername;
     private String currentPrompt;
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity{
 
         Button buttonLogout = findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
-            /** Returns to the login screen. */
             @Override
             public void onClick(View v) {
                 navigateToLogin();
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity{
         applyResolvedTheme();
     }
 
-    /** For returning to main page **/
     @Override
     protected void onResume() {
         super.onResume();
@@ -95,7 +93,6 @@ public class MainActivity extends AppCompatActivity{
         ThemeManager.applyTheme(this, activeTheme);
     }
 
-    /** Loads in Cities and manages them **/
     private void loadCities() {
         cityContainer.removeAllViews();
 
@@ -122,6 +119,13 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             });
 
+            Button mapButton = new Button(this);
+            mapButton.setText("Map");
+            mapButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                intent.putExtra("city", city);
+                startActivity(intent);
+            });
             Button weatherButton = new Button(this);
             weatherButton.setText(R.string.weather_screen_title);
             weatherButton.setOnClickListener(v -> openWeatherScreen(city));
@@ -130,12 +134,13 @@ public class MainActivity extends AppCompatActivity{
             removeButton.setText("Remove");
             removeButton.setOnClickListener(v -> {
                 databaseHelper.removeCityForUser(currentUsername, city);
-                loadCities(); // refresh list after deletion
+                loadCities();
                 ThemeManager.applyTheme(this, activeTheme);
             });
 
             row.addView(cityName);
             row.addView(detailsButton);
+            row.addView(mapButton);
             row.addView(weatherButton);
             row.addView(removeButton);
             cityContainer.addView(row);
@@ -193,7 +198,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    /** Performs LLM API Call and returns response */
     private String jsonRequest(String input) throws Exception {
         JSONObject body = new JSONObject().put("contents", new JSONArray().put(new JSONObject().put("parts", new JSONArray().put(
                 new JSONObject().put("text", ThemePromptBuilder.buildUserPrompt(input)))))).put("generationConfig", new JSONObject()
@@ -220,7 +224,6 @@ public class MainActivity extends AppCompatActivity{
         return theme;
     }
 
-    /** Clears the back stack and returns to login. */
     private void navigateToLogin() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -228,7 +231,6 @@ public class MainActivity extends AppCompatActivity{
         finish();
     }
 
-    /** Terminates thread handling LLM-driven customization **/
     @Override
     protected void onDestroy() {
         super.onDestroy();
