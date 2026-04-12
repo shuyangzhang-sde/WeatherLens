@@ -16,6 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "GEMINI_KEY", "\"${GEMINI_KEY}\""
         buildConfigField "String", "MAPS_API_KEY", "\"${MAPS_API_KEY}\""
+        buildConfigField "String", "WEATHER_API_KEY", "\"${WEATHER_API_KEY}\""
     }
 
     buildTypes {

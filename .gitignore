@@ -5,8 +5,10 @@ build/
 # Local config
 local.properties
 
-# Mac
+# macOS / Windows junk (never commit)
 .DS_Store
+**/.DS_Store
+Thumbs.db
 
 # Android Studio
 .idea/

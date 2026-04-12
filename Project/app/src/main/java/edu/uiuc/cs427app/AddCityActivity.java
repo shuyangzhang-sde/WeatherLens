@@ -15,6 +15,13 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.uiuc.cs427app.theme.ThemeContract;
+import edu.uiuc.cs427app.theme.ThemeDefaults;
+import edu.uiuc.cs427app.theme.ThemeManager;
+import edu.uiuc.cs427app.theme.ThemeParser;
+import edu.uiuc.cs427app.theme.ThemePromptBuilder;
+import edu.uiuc.cs427app.theme.ThemeSpec;
+
 public class AddCityActivity extends AppCompatActivity {
 
     private EditText editTextCityName;
@@ -29,6 +36,11 @@ public class AddCityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_city);
 
+        String themeJson = getIntent().getStringExtra(ThemeContract.EXTRA_THEME_JSON);
+        if (themeJson != null && !themeJson.isEmpty()) {
+            ThemeManager.applyTheme(this, ThemeParser.parseThemeJsonOrDefault(themeJson));
+        }
+
         currentUsername = getIntent().getStringExtra("username");
         databaseHelper = new DatabaseHelper(this);
 
@@ -41,7 +53,7 @@ public class AddCityActivity extends AppCompatActivity {
     }
 
     private void saveCity() {
-        String cityName = editTextCityName.getText().toString().trim();
+        String cityName = properCap(editTextCityName.getText().toString().trim());
 
         if (cityName.isEmpty()) {
             Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show();
@@ -116,6 +128,22 @@ public class AddCityActivity extends AppCompatActivity {
         }
     }
 
+    /** Ensures proper capitalization of city name after its typed for display **/
+    private static String properCap(String input) {
+        if (input == null || input.isEmpty()) return input;
+        String[] words = input.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                sb.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1).toLowerCase());
+                sb.append(" ");
+            }
+        }
+        return sb.toString().trim();
+    }
+
+/**clean up method**/
     @Override
     protected void onDestroy() {
         super.onDestroy();
