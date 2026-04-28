@@ -49,6 +49,18 @@ public class WeatherInsightsActivity extends AppCompatActivity {
     private static final String GEMINI_GENERATE_URL =
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
+    /**
+     * Pluggable text generator used by instrumentation tests to avoid real network calls.
+     */
+    public interface InsightsTextGenerator {
+        /**
+         * Generates model text for the provided prompt.
+         */
+        String generate(String userPrompt) throws Exception;
+    }
+
+    private static volatile InsightsTextGenerator testTextGenerator;
+
     private LinearLayout questionContainer;
     private TextView answerText;
     private ProgressBar progressBar;
@@ -56,6 +68,20 @@ public class WeatherInsightsActivity extends AppCompatActivity {
 
     private String cityName = "";
     private String weatherJson = "";
+
+    /**
+     * Installs a test generator override. Test-only hook.
+     */
+    static void setInsightsTextGeneratorForTesting(InsightsTextGenerator generator) {
+        testTextGenerator = generator;
+    }
+
+    /**
+     * Clears the test generator override. Test-only hook.
+     */
+    static void clearInsightsTextGeneratorForTesting() {
+        testTextGenerator = null;
+    }
 
     /** Set up toolbar, read extras (city + weather JSON), then kick off loading questions. */
     @Override
@@ -92,10 +118,10 @@ public class WeatherInsightsActivity extends AppCompatActivity {
     /** First Gemini call: get suggested questions from the weather data we got in the intent. */
     private void loadSuggestedQuestions() {
         setLoading(true);
-        executor.execute(() -> {
+        executeGenerationTask(() -> {
             try {
                 String prompt = buildQuestionsPrompt(cityName, weatherJson);
-                String rawText = geminiGeneratePlainText(prompt);
+                String rawText = generateTextForPrompt(prompt);
                 String[] questions = parseQuestionsJson(rawText);
                 runOnUiThread(() -> {
                     setLoading(false);
@@ -187,10 +213,10 @@ public class WeatherInsightsActivity extends AppCompatActivity {
     private void fetchAnswerForQuestion(String question) {
         setLoading(true);
         answerText.setText("");
-        executor.execute(() -> {
+        executeGenerationTask(() -> {
             try {
                 String prompt = buildAnswerPrompt(cityName, weatherJson, question);
-                String rawText = geminiGeneratePlainText(prompt);
+                String rawText = generateTextForPrompt(prompt);
                 runOnUiThread(() -> {
                     setLoading(false);
                     answerText.setText(rawText.trim());
@@ -208,6 +234,29 @@ public class WeatherInsightsActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    /**
+     * Runs generation work on a background thread in production.
+     * In tests with a fake generator override, runs inline for deterministic UI timing.
+     */
+    private void executeGenerationTask(Runnable task) {
+        if (testTextGenerator != null) {
+            task.run();
+            return;
+        }
+        executor.execute(task);
+    }
+
+    /**
+     * Uses a test generator when present, otherwise calls the real Gemini HTTP path.
+     */
+    private String generateTextForPrompt(String userPrompt) throws Exception {
+        InsightsTextGenerator override = testTextGenerator;
+        if (override != null) {
+            return override.generate(userPrompt);
+        }
+        return geminiGeneratePlainText(userPrompt);
     }
 
     /** Simple loading spinner so the user knows we're waiting on the network. */
