@@ -36,6 +36,9 @@ public class WeatherInsightsActivityTest {
                     + "\"wind\":{\"speed\":6.2,\"deg\":200}"
                     + "}";
 
+    /**
+     * Ran before as setup based on prompt
+     */
     @Before
     public void setUp() {
         WeatherInsightsActivity.setInsightsTextGeneratorForTesting(prompt -> {
@@ -52,25 +55,39 @@ public class WeatherInsightsActivityTest {
         });
     }
 
+    private ActivityScenario<WeatherInsightsActivity> scenario;
+
+    /**
+     * Ran to cleanup after tests
+     */
     @After
     public void tearDown() {
+        if (scenario != null) {
+            scenario.close();
+            scenario = null;
+        }
+
         WeatherInsightsActivity.clearInsightsTextGeneratorForTesting();
     }
 
+    /**
+     * Tests if generated answer from llm is shown after click
+     */
     @Test
-    public void selectingSuggestedQuestionShowsGeneratedAnswer() {
+    public void selectingSuggestedQuestionShowsGeneratedAnswer() throws InterruptedException {
         Intent intent = new Intent(
                 ApplicationProvider.getApplicationContext(),
                 WeatherInsightsActivity.class);
         intent.putExtra(WeatherInsightsActivity.EXTRA_CITY_NAME, "Chicago");
         intent.putExtra(WeatherInsightsActivity.EXTRA_WEATHER_JSON, SAMPLE_WEATHER_JSON);
 
-        ActivityScenario.launch(intent);
+        scenario = ActivityScenario.launch(intent);
 
         onView(withText("Do I need an umbrella today?")).check(matches(isDisplayed()));
         onView(withText("Is it comfortable for outdoor exercise?")).check(matches(isDisplayed()));
 
         onView(withText("Do I need an umbrella today?")).perform(click());
+        Thread.sleep(500);
         onView(withId(R.id.weatherInsightsAnswer))
                 .check(matches(withText(containsString("umbrella"))));
     }

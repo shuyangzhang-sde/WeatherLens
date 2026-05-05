@@ -58,6 +58,9 @@ public class AddRemoveCityTest {
         scenario = ActivityScenario.launch(intent);
     }
 
+    /**
+     * Cleans up after all tests
+     */
     @After
     public void tearDown() {
         if (scenario != null) {

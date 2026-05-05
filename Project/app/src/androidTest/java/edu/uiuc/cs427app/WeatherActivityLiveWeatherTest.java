@@ -38,6 +38,10 @@ public class WeatherActivityLiveWeatherTest {
 
     private ActivityScenario<WeatherActivity> scenario;
 
+
+    /**
+     * Ran to cleanup after tests
+     */
     @After
     public void tearDown() {
         if (scenario != null) {
@@ -51,11 +55,17 @@ public class WeatherActivityLiveWeatherTest {
         }
     }
 
+    /**
+     * Makes sure ground truth matches for chicago
+     */
     @Test
     public void liveWeatherForChicagoMatchesGroundTruth() throws Exception {
         assertLiveWeatherForCity("Chicago");
     }
 
+    /**
+     * Makes sure ground truth matches for champaign
+     */
     @Test
     public void liveWeatherForChampaignMatchesGroundTruth() throws Exception {
         assertLiveWeatherForCity("Champaign");
