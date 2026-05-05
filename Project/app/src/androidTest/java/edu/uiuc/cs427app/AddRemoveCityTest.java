@@ -80,14 +80,14 @@ public class AddRemoveCityTest {
         // Launch AddCityActivity via the Add button and use the test bypass so geocoder is skipped
         onView(withId(R.id.buttonAddLocation)).check(matches(isDisplayed())).perform(click());
 
-        // Enter the city and save
-        Thread.sleep(200);
-        onView(withId(R.id.editTextCityName)).perform(replaceText(city), closeSoftKeyboard());
-        Thread.sleep(200);
-        onView(withId(R.id.buttonSaveCity)).perform(click());
+    // Enter the city and save
+    Thread.sleep(1500);
+    onView(withId(R.id.editTextCityName)).perform(replaceText(city), closeSoftKeyboard());
+    Thread.sleep(1500);
+    onView(withId(R.id.buttonSaveCity)).perform(click());
 
-        // Allow UI thread to update
-        Thread.sleep(500);
+    // Allow UI thread to update and MainActivity to resume
+    Thread.sleep(2000);
 
         onView(withText(city)).check(matches(isDisplayed()));
     }
@@ -101,14 +101,15 @@ public class AddRemoveCityTest {
         setUpCleanMainScreen(username);
         String city = "Springfield";
 
-        // Add city through the UI (so UI wiring is exercised)
-        onView(withId(R.id.buttonAddLocation)).check(matches(isDisplayed())).perform(click());
-        Thread.sleep(200);
-        onView(withId(R.id.editTextCityName)).perform(replaceText(city), closeSoftKeyboard());
-        Thread.sleep(200);
-        onView(withId(R.id.buttonSaveCity)).perform(click());
+    // Add city through the UI (so UI wiring is exercised)
+    onView(withId(R.id.buttonAddLocation)).check(matches(isDisplayed())).perform(click());
+    Thread.sleep(1500);
+    onView(withId(R.id.editTextCityName)).perform(replaceText(city), closeSoftKeyboard());
+    Thread.sleep(1500);
+    onView(withId(R.id.buttonSaveCity)).perform(click());
 
-        Thread.sleep(500);
+    // Allow UI thread to update and MainActivity to resume
+    Thread.sleep(2000);
 
         // Click the Remove button that is a sibling of the city name
         onView(allOf(withText("Remove"), hasSibling(withText(city)))).perform(click());
