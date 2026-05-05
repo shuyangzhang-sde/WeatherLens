@@ -52,8 +52,8 @@ public class AddRemoveCityTest {
         // MainActivity requires a non-null prompt extra; provide a placeholder and cached JSON
         intent.putExtra(ThemeContract.EXTRA_THEME_PROMPT, "placeholder prompt");
         intent.putExtra(ThemeContract.EXTRA_THEME_JSON, ThemeDefaults.defaultThemeJson());
-    // tell MainActivity to propagate a test bypass so AddCityActivity skips Geocoder validation
-    intent.putExtra("TEST_BYPASS_GEOCODER", true);
+        // tell MainActivity to propagate a test bypass so AddCityActivity skips Geocoder validation
+        intent.putExtra("TEST_BYPASS_GEOCODER", true);
 
         scenario = ActivityScenario.launch(intent);
     }

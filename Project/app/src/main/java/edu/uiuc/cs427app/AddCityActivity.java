@@ -30,7 +30,6 @@ public class AddCityActivity extends AppCompatActivity {
     private String currentUsername;
     private DatabaseHelper databaseHelper;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private boolean testBypassGeocoder = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,6 @@ public class AddCityActivity extends AppCompatActivity {
         }
 
         currentUsername = getIntent().getStringExtra("username");
-        testBypassGeocoder = getIntent().getBooleanExtra("TEST_BYPASS_GEOCODER", false);
         databaseHelper = new DatabaseHelper(this);
 
         editTextCityName = findViewById(R.id.editTextCityName);
@@ -70,7 +68,7 @@ public class AddCityActivity extends AppCompatActivity {
         buttonSaveCity.setEnabled(false);
 
         executor.execute(() -> {
-            boolean isValid = testBypassGeocoder || isValidCity(cityName);
+            boolean isValid = isValidCity(cityName);
 
             runOnUiThread(() -> {
                 buttonSaveCity.setEnabled(true);
