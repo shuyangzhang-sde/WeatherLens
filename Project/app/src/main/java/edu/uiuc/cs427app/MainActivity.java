@@ -65,10 +65,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Button buttonNew = findViewById(R.id.buttonAddLocation);
+        boolean bypassGeocoder = getIntent().getBooleanExtra("TEST_BYPASS_GEOCODER", false);
         buttonNew.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddCityActivity.class);
             intent.putExtra("username", currentUsername);
             intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
+            if (bypassGeocoder) {
+                intent.putExtra("TEST_BYPASS_GEOCODER", true);
+            }
             startActivity(intent);
         });
 
