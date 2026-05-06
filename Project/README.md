@@ -19,7 +19,6 @@ Do not hardcode API keys in Java source files.
 | Akin Tuna Sakalli | sakalli2 | akinnsakalli | Developer | Backend, ML |
 | Varsha Mullangi | varsham3 | varsham3 | Developer | Backend |
 | Akshay Rao | Akshayr4 | Akreal1 | Developer | Backend |
-| Lewen Shen | lewens2 | LeWEn22 | Developer | Backend |
 
 ## Weekly Progress Reports
 
@@ -36,6 +35,9 @@ Password: 138679
 
 **Members present:**
 sz94, sakalli2, ojama2, Akshayr4, mj45, yuchen87, varsham3
+
+**Meeting notes:**
+During this weekly meeting, we setup our repository and method of communication
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
@@ -108,6 +110,25 @@ This weekly meeting was used to divide tasks for the upcoming iteration 3 part 1
 ### Project Week 5
 
 **Members present:**
+No meeting was held (spring break)
+
+**Meeting notes:**
+No meeting was held (spring break)
+
+| NetID | Progress from last week | Tasks for next week |
+|-------|-------------------------|---------------------|
+|   ojama2    |          continued looking into LLM-driven UI customization               |           Implement LLM-driven UI customization          |
+|   sz94    |           continued looking into login/logout implementation              |          Implement login/logout           |
+|   akshayr4    |          continued looking into adding/removing cities               |          Implement add/remove cities           |
+|   yuchen87    |             continued looking into LLM-driven UI customization            |         Implement LLM-driven UI customization            |
+|   mj45    |            continued looking into adding/removing cities             |          Implement add/remove cities           |
+|   varsham3    |            continued looking into adding/removing cities             |         Implement add/remove cities            |
+|   sakalli2    |           continued looking into login/logout implementation              |          Implement login/logout           |
+|       |                         |                     |
+
+### Project Week 6
+
+**Members present:**
 ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
@@ -124,7 +145,7 @@ This meeting was used to finalize changes for the iteration 3 part 1 submission.
 |    sakalli3   |           Implemented login/logout feature              |          Begin looking into tasks for iteration 3 part 2           |
 |       |                         |                     |
 
-### Project Week 6
+### Project Week 7
 
 **Members present:**
 ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
@@ -142,7 +163,7 @@ This meeting was used mainly to assign task for the current iteration and discus
 |   varsham3    |            began looking into adding interactive map               |          Implement interactive map           |
 |   sakalli2    |           began looking into weather details implementation              |          Implement weather details          |
 
-### Project Week 7
+### Project Week 8
 
 **Members present:**
 ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
@@ -160,98 +181,75 @@ This meeting was used to integrate additions made for iteration 4 and review com
 |    varsham3   |            Implemented interactive map             |          Begin looking into tasks for iteration 5           |
 |    sakalli3   |           Implemented weather details             |          Begin looking into tasks for iteration 5           |
 
-### Project Week 8
-
-**Members present:**
-List the NetID of the people who attended the meeting
-
-**Meeting notes:**
-Explain the overall team progress and a summary of discussion
-
-| NetID | Progress from last week | Tasks for next week |
-|-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-
 ### Project Week 9
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+During this weekly meeting, we assigned tasks for iteration 5
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led weekly meeting, assigned tasks for iteration 5, began looking into LLM generated tests and logoff test               |           Implement LLM generated tests and logoff test          |
+|   sz94    |           began looking into weather details tests              |          Implement weather details tests         |
+|   akshayr4    |          began looking into add/remove cities tests              |          Implement add/remove cities tests           |
+|   yuchen87    |             began looking into weather insights tests           |         Implement weather insights tests           |
+|   mj45    |            began looking into interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   varsham3    |            began looking into interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   sakalli2    |           began looking into weather details tests             |          Implement weather details tests          |
 
 ### Project Week 10
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+During this weekly meeting, we discussed progress and roadblocks on iteration 5
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led weekly meeting, continued working on LLM generated tests and logoff test               |           Implement LLM generated tests and logoff test          |
+|   sz94    |           continued working on weather details tests              |          Implement weather details tests         |
+|   akshayr4    |          continued working on add/remove cities tests              |          Implement add/remove cities tests           |
+|   yuchen87    |             continued working on weather insights tests           |         Implement weather insights tests           |
+|   mj45    |            continued working on interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   varsham3    |            continued working on interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   sakalli2    |           continued working on weather details tests             |          Implement weather details tests          |
 
 ### Project Week 11
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+During this weekly meeting, we discussed progress and roadblocks on iteration 5
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led weekly meeting, continued working on LLM generated tests and logoff test, followed up with TA on iteration 4 ReadMe grading               |           Implement LLM generated tests and logoff test          |
+|   sz94    |           continued working on weather details tests              |          Implement weather details tests         |
+|   akshayr4    |          continued working on add/remove cities tests              |          Implement add/remove cities tests           |
+|   yuchen87    |             continued working on weather insights tests           |         Implement weather insights tests           |
+|   mj45    |            continued working on interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   varsham3    |            continued working on interactive map and mocking location tests               |          Implement interactive map and mocking location tests          |
+|   sakalli2    |           continued working on weather details tests             |          Implement weather details tests          |
 
 ### Project Week 12
 
 **Members present:**
-List the NetID of the people who attended the meeting
+ojama2, sz94, akshayr4, yuchen87, mj45, varsham3, sakalli2
 
 **Meeting notes:**
-Explain the overall team progress and a summary of discussion
+This meeting was used to integrate the tests we wrote for iteration 5, resolving merge conflicts and figuring out small bug fixes
 
 | NetID | Progress from last week | Tasks for next week |
 |-------|-------------------------|---------------------|
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
-|       |                         |                     |
+|   ojama2    |          Led integration call, implemented LLM generated tests and logoff tests, created coverage report as well as video and LLM usage report               |          None (Done with project)          |
+|   sz94    |              Implemented weather details tests           |          None (Done with project)          |
+|   akshayr4    |            Implemented add/remove cities tests            |          None (Done with project)          |
+|   yuchen87    |          Implemented weather insights tests              |          None (Done with project)          |
+|   mj45    |           Implemented interactive map and mocking location tests            |          None (Done with project)          |
+|    varsham3   |            Implemented interactive map and mocking location tests            |          None (Done with project)          |
+|    sakalli3   |           Implemented weather details tests            |          None (Done with project)          |
 
