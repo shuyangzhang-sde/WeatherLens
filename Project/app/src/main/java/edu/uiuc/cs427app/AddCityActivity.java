@@ -68,7 +68,9 @@ public class AddCityActivity extends AppCompatActivity {
         buttonSaveCity.setEnabled(false);
 
         executor.execute(() -> {
-            boolean isValid = isValidCity(cityName);
+            // boolean isValid = isValidCity(cityName);
+            boolean bypassGeocoder = getIntent().getBooleanExtra("TEST_BYPASS_GEOCODER", false);
+            boolean isValid = bypassGeocoder || isValidCity(cityName);
 
             runOnUiThread(() -> {
                 buttonSaveCity.setEnabled(true);

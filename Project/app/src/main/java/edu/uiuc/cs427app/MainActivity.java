@@ -69,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddCityActivity.class);
             intent.putExtra("username", currentUsername);
             intent.putExtra(ThemeContract.EXTRA_THEME_JSON, currentTheme);
+
+            // add this
+            if (getIntent().getBooleanExtra("TEST_BYPASS_GEOCODER", false)) {
+                intent.putExtra("TEST_BYPASS_GEOCODER", true);
+            }
+
             startActivity(intent);
         });
 
