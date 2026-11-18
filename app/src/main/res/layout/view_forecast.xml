@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:paddingStart="20dp" android:paddingEnd="20dp" android:paddingTop="16dp">
+    <ScrollView android:id="@+id/forecastScroll" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:scrollbars="none" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="20dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView style="@style/Lens.Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Forecast"/>
+                <FrameLayout android:id="@+id/forecastCitySelectorSlot" android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginStart="16dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginTop="8dp">
+                <com.google.android.material.button.MaterialButton android:id="@+id/forecastWeather"
+                    style="@style/Lens.Button" android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginEnd="8dp" android:text="Weather details"/>
+                <com.google.android.material.button.MaterialButton android:id="@+id/forecastMap"
+                    style="@style/Lens.Button" android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Map" android:tag="secondary"/>
+            </LinearLayout>
+            <ProgressBar android:id="@+id/forecastProgress" android:layout_width="32dp" android:layout_height="32dp"
+                android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:visibility="gone"/>
+            <TextView android:id="@+id/forecastStatus" style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite"/>
+            <LinearLayout android:id="@+id/forecastPeriods" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/forecastRetry"
+                style="@style/Lens.Button" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Retry forecast" android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <item name="forecastHourlyScroll" type="id"/>
+    <item name="forecastHours" type="id"/>
+    <item name="forecastDailyRows" type="id"/>
+</resources>
