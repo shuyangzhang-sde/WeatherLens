@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<resources>
+    <style name="Theme.MyFirstApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">#F6EAE1</item>
+        <item name="colorPrimaryVariant">#F6EAE1</item>
+        <item name="colorOnPrimary">#25262B</item>
+        <item name="colorSecondary">#665065</item>
+        <item name="colorSurface">#F6EAE1</item>
+        <item name="colorOnSurface">#25262B</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:windowBackground">@drawable/weatherlens_background</item>
+        <item name="android:statusBarColor">#F6EAE1</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#F6EAE1</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="materialButtonStyle">@style/Lens.Button</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+    </style>
+</resources>

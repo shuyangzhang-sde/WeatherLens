@@ -1,0 +1,6 @@
+# Copy to local.properties, or add these entries to the file Android Studio creates.
+# local.properties is ignored by Git. Enter raw values without quotes.
+sdk.dir=/absolute/path/to/Android/sdk
+WEATHER_API_KEY=
+GEMINI_KEY=
+MAPS_API_KEY=

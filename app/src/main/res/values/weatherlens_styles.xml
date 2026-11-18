@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<resources>
+    
+
+    <style name="Lens.Body" parent="">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">#25262B</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+
+    <style name="Lens.Title" parent="Lens.Body">
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+
+    <style name="Lens.Caption" parent="Lens.Body">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#61616C</item>
+    </style>
+    
+
+    <style name="Lens.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">28dp</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textSize">15sp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="backgroundTint">@color/lens_button_fill</item>
+        <item name="android:textColor">#25262B</item>
+    </style>
+    
+
+    <!-- Keep interactive colors distinct from the pale decorative palette. -->
+    <style name="Lens.InputOverlay" parent="">
+        <item name="colorPrimary">#55406F</item>
+        <item name="colorControlActivated">#55406F</item>
+        <item name="android:colorControlActivated">#55406F</item>
+        <item name="android:textColorHint">@color/lens_input_hint</item>
+    </style>
+
+    <style name="Lens.Input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/Lens.InputOverlay</item>
+        <item name="boxStrokeColor">@color/lens_input_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="hintTextColor">#55406F</item>
+        <item name="android:textColorHint">@color/lens_input_hint</item>
+        <item name="endIconTint">#625B6B</item>
+    </style>
+
+    <style name="Lens.EditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">#25262B</item>
+        <item name="android:textColorHighlight">#4055406F</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="Lens.Heading" parent="Lens.Body">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+</resources>
