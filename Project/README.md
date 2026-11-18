@@ -2,11 +2,26 @@
 
 The code for CS427 Android app.
 
-## Gemini Key Setup
+## API key setup
 
-Set `GEMINI_KEY` in `Project/gradle.properties` (or your local gradle properties source) so
-`BuildConfig.GEMINI_KEY` is populated at build time.
-Do not hardcode API keys in Java source files.
+Keep actual API keys in `Project/local.properties`, which is ignored by Git.
+Android Studio supplies `sdk.dir`; add the keys needed for your features:
+
+```properties
+WEATHER_API_KEY=your_openweather_key
+GEMINI_KEY=your_gemini_key
+MAPS_API_KEY=your_google_maps_key
+```
+
+Rebuild after changing keys. Local properties override Gradle properties. Maps
+reads its key through a manifest placeholder; Gemini and weather use BuildConfig.
+Never put actual keys in Java, Android resources, or tracked Gradle properties.
+Keys remain extractable from APKs; apply provider restrictions before distribution.
+
+Keys previously committed to this repository must be revoked by their owners in
+Google Cloud or Google AI Studio. Removing a key from current source does not
+remove historical copies or revoke access. Preserve contributor history and close
+GitHub alerts as revoked only after provider-side revocation is confirmed.
 
 ## Team #304 member information
 

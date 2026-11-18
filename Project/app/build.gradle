@@ -2,6 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+// Keep real keys in ignored local.properties or user-level Gradle properties.
+def localConfig = new Properties()
+def localConfigFile = rootProject.file('local.properties')
+if (localConfigFile.exists()) {
+    localConfigFile.withInputStream { localConfig.load(it) }
+}
+def apiKey = { String name ->
+    localConfig.getProperty(name, project.findProperty(name)?.toString() ?: '')
+}
+
 android {
     namespace "edu.uiuc.cs427app"
     compileSdk 32
@@ -12,11 +22,12 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [mapsApiKey: apiKey('MAPS_API_KEY')]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "GEMINI_KEY", "\"${GEMINI_KEY}\""
-        buildConfigField "String", "MAPS_API_KEY", "\"${MAPS_API_KEY}\""
-        buildConfigField "String", "WEATHER_API_KEY", "\"${WEATHER_API_KEY}\""
+        buildConfigField "String", "GEMINI_KEY", groovy.json.JsonOutput.toJson(apiKey('GEMINI_KEY'))
+        buildConfigField "String", "MAPS_API_KEY", groovy.json.JsonOutput.toJson(apiKey('MAPS_API_KEY'))
+        buildConfigField "String", "WEATHER_API_KEY", groovy.json.JsonOutput.toJson(apiKey('WEATHER_API_KEY'))
     }
 
     buildTypes {

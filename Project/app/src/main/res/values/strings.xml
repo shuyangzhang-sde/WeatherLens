@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Team 304</string>
-    <string name="google_maps_key">AIzaSyCUYTGm1OX9nV5oKMpY-n3_XrMtKpMyL1o</string>
     <string name="weather_insights_title">Weather Insights</string>
     <string name="weather_insights_missing_context">Missing weather data for insights.</string>
     <string name="weather_insights_questions_failed">Could not load suggested questions.</string>
