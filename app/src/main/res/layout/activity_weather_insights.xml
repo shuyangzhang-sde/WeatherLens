@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="20dp" android:background="@drawable/weatherlens_background">
+    <TextView style="@style/Lens.Title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="A little perspective"/>
+    <TextView style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Weather insights, made for your day." android:layout_marginTop="8dp" android:layout_marginBottom="12dp"/>
+    <ProgressBar android:id="@+id/weatherInsightsProgress" android:layout_width="32dp" android:layout_height="32dp" android:layout_gravity="center_horizontal" android:visibility="gone"/>
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false" android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:tag="lens_card" android:background="@drawable/lens_card" android:padding="22dp" android:layout_marginTop="16dp">
+                <TextView style="@style/Lens.Heading" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ask about your weather"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/weatherInsightsQuestionContainer" android:layout_marginTop="12dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:tag="lens_card" android:background="@drawable/lens_card" android:padding="22dp" android:layout_marginTop="16dp">
+                <TextView style="@style/Lens.Body" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherInsightsAnswer" android:text="" android:textIsSelectable="true" android:lineSpacingExtra="6dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

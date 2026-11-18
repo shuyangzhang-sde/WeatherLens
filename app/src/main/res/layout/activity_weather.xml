@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="20dp" android:background="@drawable/weatherlens_background">
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false" android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="16dp">
+            <LinearLayout android:id="@+id/todayHeading" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:visibility="gone">
+                <TextView style="@style/Lens.Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today"/>
+                <FrameLayout android:id="@+id/todayCitySelectorSlot" android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginStart="16dp"/>
+            </LinearLayout>
+            <TextView style="@style/Lens.Title" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherCityName" android:text=""/>
+            <TextView style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherDateTime" android:text="" android:layout_marginTop="8dp"/>
+            <ProgressBar android:id="@+id/weatherProgress" android:layout_width="28dp" android:layout_height="28dp" android:layout_gravity="center_horizontal" android:layout_marginTop="12dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:tag="lens_sun" android:background="@drawable/lens_sun_card" android:padding="20dp" android:layout_marginTop="20dp">
+                <TextView style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="CURRENT WEATHER" android:gravity="center" android:letterSpacing="0.12"/>
+                <ImageView android:layout_width="140dp" android:layout_height="140dp" android:layout_gravity="center_horizontal" android:id="@+id/weatherIllustration" android:src="@drawable/lens_cloud" android:importantForAccessibility="no"/>
+                <TextView style="@style/Lens.Title" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherTemperature" android:text="—" android:gravity="center" android:maxLines="1" android:textSize="68sp" android:autoSizeTextType="uniform" android:autoSizeMinTextSize="36sp" android:autoSizeMaxTextSize="68sp"/>
+                <TextView style="@style/Lens.Heading" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherCondition" android:text="" android:gravity="center" android:layout_marginTop="4dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:baselineAligned="false" android:layout_marginTop="16dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1" android:layout_marginEnd="6dp" android:minHeight="112dp"
+                    android:orientation="vertical" android:tag="lens_card" android:background="@drawable/lens_card" android:padding="18dp">
+                    <TextView style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="HUMIDITY"/>
+                    <TextView style="@style/Lens.Body" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherHumidity" android:text="—" android:layout_marginTop="8dp"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1" android:layout_marginStart="6dp" android:minHeight="112dp"
+                    android:orientation="vertical" android:tag="lens_card" android:background="@drawable/lens_card" android:padding="18dp">
+                    <TextView style="@style/Lens.Caption" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="WIND"/>
+                    <TextView style="@style/Lens.Body" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherWind" android:text="—" android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView style="@style/Lens.Body" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weatherError" android:text="" android:visibility="gone" android:layout_marginTop="16dp" android:accessibilityLiveRegion="polite"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/todayRetry" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Retry weather" android:visibility="gone"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/weatherInsightsButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Explore weather insights  →"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
